@@ -13,7 +13,7 @@ struct ChatView: View{
     @State var messages : [Message] = Message.messageDummyData()
     
     var body: some View{
-        
+  
         VStack {
             List{
                 ForEach(messages, id: \.self) { message in
@@ -25,16 +25,21 @@ struct ChatView: View{
             .toolbar{
                 NavigationLink("Done", destination: Survey())
             }
+            
+            
+            HStack {
+                TextField("Message...", text: $typingMessage)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(minHeight: CGFloat(30))
+                
+                Button(action: sendMessage) {
+                    Text("Send")
+                }
+                
+            }.frame(minHeight: CGFloat(50)).padding()
+            
+            
         }
-        
-        HStack {
-            TextField("Message...", text: $typingMessage)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(minHeight: CGFloat(30))
-            Button(action: sendMessage) {
-                Text("Send")
-            }
-        }.frame(minHeight: CGFloat(50)).padding()
     }
     
     
@@ -45,7 +50,6 @@ struct ChatView: View{
     }
     
 }
-
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {

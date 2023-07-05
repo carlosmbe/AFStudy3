@@ -5,13 +5,22 @@
 //  Created by Carlos Mbendera on 2023-06-14.
 //
 
+import FirebaseFirestoreSwift
+
+
 import Foundation
 import SwiftUI
 
-struct Message: Hashable{
+struct Message: Identifiable, Hashable{
+    //For Fireabse
+    @DocumentID var docId: String?
+    
+    let id = UUID()
     var isMe : Bool
     var messageContent : String
     var name : String?
+    //Date() is only used when not passing a parameter. Otherwise, older messages will take Saved Data passed in. New Messages will not.
+    var timestamp: Date = Date()
     
    static func messageDummyData() -> [Message]{
         
@@ -24,6 +33,8 @@ struct Message: Hashable{
        return testArray
     }
 }
+
+
 
 struct messageUI : View{
     
