@@ -12,6 +12,9 @@
 		B65856012A3979DE008A597A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65856002A3979DE008A597A /* ContentView.swift */; };
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
+		B69A9E242A4C88450062F494 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = B69A9E232A4C88450062F494 /* CardStack */; };
+		B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55752A4A884F00AD6CE7 /* ChatView.swift */; };
+		B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,8 @@
 		B65856002A3979DE008A597A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B65856022A3979E0008A597A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B65856052A3979E0008A597A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B6EA55752A4A884F00AD6CE7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B69A9E242A4C88450062F494 /* CardStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,8 @@
 				B634BA062A3AA8910069EEF8 /* Models.swift */,
 				B65856022A3979E0008A597A /* Assets.xcassets */,
 				B65856042A3979E0008A597A /* Preview Content */,
+				B6EA55752A4A884F00AD6CE7 /* ChatView.swift */,
+				B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */,
 			);
 			path = DraftAFStudy3;
 			sourceTree = "<group>";
@@ -86,6 +94,9 @@
 			dependencies = (
 			);
 			name = DraftAFStudy3;
+			packageProductDependencies = (
+				B69A9E232A4C88450062F494 /* CardStack */,
+			);
 			productName = DraftAFStudy3;
 			productReference = B65855FB2A3979DE008A597A /* DraftAFStudy3.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +125,9 @@
 				Base,
 			);
 			mainGroup = B65855F22A3979DE008A597A;
+			packageReferences = (
+				B69A9E222A4C88450062F494 /* XCRemoteSwiftPackageReference "CardStack" */,
+			);
 			productRefGroup = B65855FC2A3979DE008A597A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -140,7 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */,
 				B634BA072A3AA8910069EEF8 /* Models.swift in Sources */,
+				B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */,
 				B65856012A3979DE008A597A /* ContentView.swift in Sources */,
 				B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */,
 			);
@@ -343,6 +359,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B69A9E222A4C88450062F494 /* XCRemoteSwiftPackageReference "CardStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/notsobigcompany/CardStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B69A9E232A4C88450062F494 /* CardStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B69A9E222A4C88450062F494 /* XCRemoteSwiftPackageReference "CardStack" */;
+			productName = CardStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B65855F32A3979DE008A597A /* Project object */;
 }
