@@ -5,6 +5,7 @@
 //  Created by Carlos Mbendera on 2023-07-05.
 //
 
+import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
@@ -18,8 +19,13 @@ class ChatViewModel: ObservableObject {
     }
     
     func loadMessages() {
-        db.collection("messages").order(by: "timestamp").addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User is not logged in")
+            return
+        }
+        
+        db.collection("UserMessages").document(userID).collection("messageItems").order(by: "timestamp").addSnapshotListener { (querySnapshot, error) in
+             guard let documents = querySnapshot?.documents else {
                 print("No documents")
                 return
             }
@@ -38,15 +44,27 @@ class ChatViewModel: ObservableObject {
     }
     
     func addMessage(_ message: Message) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User is not logged in")
+            return
+        }
+        
         do {
-            try db.collection("messages").addDocument(data: [
+            let messageData: [String: Any] = [
                 "isMe": message.isMe,
                 "messageContent": message.messageContent,
                 "name": message.name ?? "",
                 "timestamp": message.timestamp
-            ])
+            ]
+            
+            try db.collection("UserMessages")
+                .document(userID)
+                .collection("messageItems")
+                .addDocument(data: messageData)
         } catch let error {
             print("Error writing message to Firestore: \(error)")
         }
     }
+
+    
 }

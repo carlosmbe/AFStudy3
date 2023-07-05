@@ -7,25 +7,26 @@
 
 import SwiftUI
 
-struct ChatView: View{
-    
+struct ChatView: View {
+
     @State private var typingMessage = ""
-    @State var messages : [Message] = Message.messageDummyData()
     
-    var body: some View{
-  
+    @StateObject private var chatViewModel = ChatViewModel()
+    @State private var isNewMessageAdded = false
+
+    var body: some View {
         VStack {
-            List{
-                ForEach(messages, id: \.self) { message in
+            List {
+                ForEach(chatViewModel.messages, id: \.self) { message in
                     messageUI(message: message)
                         .listRowSeparator(.hidden)
                 }
+              
             }
             .navigationTitle("Chat")
-            .toolbar{
+            .toolbar {
                 NavigationLink("Done", destination: Survey())
             }
-            
             
             HStack {
                 TextField("Message...", text: $typingMessage)
@@ -35,21 +36,22 @@ struct ChatView: View{
                 Button(action: sendMessage) {
                     Text("Send")
                 }
-                
-            }.frame(minHeight: CGFloat(50)).padding()
-            
-            
+            }
+            .frame(minHeight: CGFloat(50)).padding()
         }
+    
+        
     }
     
-    
-    private func sendMessage(){
-        let newMessage = Message(isMe: true, messageContent: typingMessage)
-        messages.append(newMessage)
+    private func sendMessage() {
+        guard !typingMessage.isEmpty else { return }
+        
+        let newMessage = Message(isMe: true, messageContent: typingMessage, name: nil, timestamp: Date())
+        chatViewModel.addMessage(newMessage)
         typingMessage = ""
     }
-    
 }
+
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {

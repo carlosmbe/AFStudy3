@@ -6,7 +6,7 @@
 //
 
 import FirebaseFirestoreSwift
-
+import FirebaseAuth
 
 import Foundation
 import SwiftUI
@@ -18,7 +18,7 @@ struct Message: Identifiable, Hashable{
     let id = UUID()
     var isMe : Bool
     var messageContent : String
-    var name : String?
+    var name : String? = Auth.auth().currentUser?.displayName
     //Date() is only used when not passing a parameter. Otherwise, older messages will take Saved Data passed in. New Messages will not.
     var timestamp: Date = Date()
     
