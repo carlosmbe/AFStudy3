@@ -24,14 +24,19 @@ struct DraftAFStudy3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
-        WindowGroup {
-            NavigationView {
-                if Auth.auth().currentUser != nil {
-                    ChatView()
-                } else {
-                    ContentView()
-                }
-            }
-        }
-    }
-}
+           WindowGroup {
+               ZStack {
+                   LinearGradient(gradient: Gradient(colors: [Color(hex: "F6FCF8"), Color(hex: "D4FOEC")]), startPoint: .top, endPoint: .bottom)
+                                 .edgesIgnoringSafeArea(.all)
+                       
+                   NavigationView {
+                       if Auth.auth().currentUser != nil {
+                           ChatView()
+                       } else {
+                           ContentView()
+                       }
+                   }
+               }
+           }
+       }
+   }

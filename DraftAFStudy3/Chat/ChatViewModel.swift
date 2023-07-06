@@ -65,6 +65,4 @@ class ChatViewModel: ObservableObject {
             print("Error writing message to Firestore: \(error)")
         }
     }
-
-    
 }
