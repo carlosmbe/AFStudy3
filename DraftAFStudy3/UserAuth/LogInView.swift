@@ -10,6 +10,8 @@ import FirebaseAuth
 
 struct LogInView: View{
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var userEmail : String = ""
     @State private var userPass : String = ""
     
@@ -21,69 +23,84 @@ struct LogInView: View{
     @State private var showPasswordResetSent = false
     
     var body :some View{
-        VStack{
+        ZStack {
             
-            ZStack {
-                Color(hex: "A4D2C3")
-                    .frame(maxWidth: 220, maxHeight: 100)
-                    .cornerRadius(10)  // Rounded corners
+            LinearGradient(gradient: Gradient(colors:  [Color(hex: "A4D2C3"),
+                                                        Color(hex: colorScheme == .dark ? "282828" : "F6FCF8")
+                                                       ]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+             
+            VStack{
+                
+                ZStack {
+                    Color(hex: "A4D2C3")
+                        .frame(maxWidth: 220, maxHeight: 100)
+                        .cornerRadius(10)  // Rounded corners
+                        .padding()
+                    
+                    VStack {
+                        Text("Hello!")
+                        Text("Please Log In")
+                    }
+                    .foregroundColor(.white)
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .padding()
-                   
-                VStack {
-                    Text("Hello!")
-                    Text("Please Log In")
+                    
                 }
-                .font(.title2)
-                .fontWeight(.bold)
-                .padding()
+                
+                Image("ai_v_in")
+                
+                
+                TextField("Email", text: $userEmail)
+                    .keyboardType(.emailAddress)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                
+                SecureField("Password", text: $userPass)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.top,.leading,.trailing])
+                
+                Button("Forgot password?", action: sendPasswordReset)
+                    .buttonStyle(.borderless)
+                    .padding(.bottom)
+                
+                
+                
+                
+                
+                NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true)
+                               ,isActive: $authenticationDidSucceed) {
+                    EmptyView()
+                }
+                
+                
+                
+                
+                Button("Sign In", action: signIn)
+                    .keyboardType(.default)
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                
+                NavigationLink("New User? Sign Up here", destination: SignUpView())
+                    .buttonStyle(.borderless)
+                    .padding()
+                
                 
             }
             
-            Image("ai_v_in")
+            .onAppear{
+                print("Is User Logged In \(Auth.auth().currentUser?.description)")
+            }
             
-            
-            TextField("Email", text: $userEmail)
-                .keyboardType(.emailAddress)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            
-            SecureField("Password", text: $userPass)
-                .textFieldStyle(.roundedBorder)
-                .padding([.top,.leading,.trailing])
-            
-            Button("Forgot password?", action: sendPasswordReset)
-                           .buttonStyle(.borderless)
-                           .padding(.bottom)
-            
-            
-            
-            
-            
-            NavigationLink(destination: ChatView(), isActive: $authenticationDidSucceed) {
-                       EmptyView()
-                   }
-            
-            
-            
-            
-            Button("Sign In", action: signIn)
-                .keyboardType(.default)
-                .buttonStyle(.borderedProminent)
-                .padding()
-            
-            NavigationLink("New User? Sign Up here", destination: SignUpView())
-            .buttonStyle(.borderless)
-            .padding()
-            
-            
+            .alert("Error: \(error)", isPresented: $showLogInError){
+                Button("OK"){}
+            }
+            .alert("Password Reset Email Sent", isPresented: $showPasswordResetSent){
+                Button("OK"){}
         }
-        .alert("Error: \(error)", isPresented: $showLogInError){
-            Button("OK"){}
         }
-        
-        .alert("Password Reset Email Sent", isPresented: $showPasswordResetSent){
-              Button("OK"){}
-          }
+    
     }
     
     
@@ -99,15 +116,15 @@ struct LogInView: View{
     }
     
     func sendPasswordReset() {
-           Auth.auth().sendPasswordReset(withEmail: userEmail) { (error) in
-               if let error = error {
-                   self.error = error.localizedDescription
-                   showLogInError = true
-               } else {
-                   showPasswordResetSent = true
-               }
-           }
-       }
+        Auth.auth().sendPasswordReset(withEmail: userEmail) { (error) in
+            if let error = error {
+                self.error = error.localizedDescription
+                showLogInError = true
+            } else {
+                showPasswordResetSent = true
+            }
+        }
+    }
     
     
 }

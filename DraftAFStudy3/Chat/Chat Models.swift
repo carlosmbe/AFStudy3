@@ -49,7 +49,7 @@ struct messageUI : View{
             Text(message.messageContent)
                 .padding(10)
                 .foregroundColor(message.isMe ? Color.white : Color.white)
-                .background(message.isMe ? Color.blue : Color.indigo)
+                .background(message.isMe ? Color(hex: "1D6F8A") : Color(hex: "A4D2C3"))
                 .cornerRadius(10)
             
             if !message.isMe{

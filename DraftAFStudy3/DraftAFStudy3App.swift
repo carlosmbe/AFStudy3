@@ -25,10 +25,6 @@ struct DraftAFStudy3App: App {
     
     var body: some Scene {
            WindowGroup {
-               ZStack {
-                   LinearGradient(gradient: Gradient(colors: [Color(hex: "F6FCF8"), Color(hex: "D4FOEC")]), startPoint: .top, endPoint: .bottom)
-                                 .edgesIgnoringSafeArea(.all)
-                       
                    NavigationView {
                        if Auth.auth().currentUser != nil {
                            ChatView()
@@ -39,4 +35,4 @@ struct DraftAFStudy3App: App {
                }
            }
        }
-   }
+   

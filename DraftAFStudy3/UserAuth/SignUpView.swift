@@ -10,6 +10,8 @@ import Firebase
 
 struct SignUpView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var firstName: String = ""
     @State private var userEmail: String = ""
     @State private var userPass: String = ""
@@ -21,43 +23,56 @@ struct SignUpView: View {
     @State private var isLoading = false  // loading indicator state
 
     var body: some View {
-        VStack{
-            Text("Create Account")
-                .font(.largeTitle)
-                .padding()
+        ZStack {
+            
+            
+            LinearGradient(gradient: Gradient(colors:  [Color(hex: "A4D2C3"),
+                                                        Color(hex: colorScheme == .dark ? "282828" : "F6FCF8")
+                                                       ]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            
+            
+            VStack{
+                Text("Create Account")
+                    .font(.largeTitle)
+                    .padding()
 
-            TextField("First Name", text: $firstName)
-                .textFieldStyle(.roundedBorder)
-                .padding()
+                TextField("First Name", text: $firstName)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
 
-            TextField("Email", text: $userEmail)
-                .keyboardType(.emailAddress)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            
-            SecureField("Password", text: $userPass)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            
-            Button("Sign Up", action: signUp)
-                .buttonStyle(.borderedProminent)
-                .padding()
-            
-            
-            // Display progress view when loading
-            if isLoading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    .scaleEffect(1.5)
+                TextField("Email", text: $userEmail)
+                    .keyboardType(.emailAddress)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                
+                SecureField("Password", text: $userPass)
+                    .textFieldStyle(.roundedBorder)
+                    .padding()
+                
+                Button("Sign Up", action: signUp)
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                
+                
+                // Display progress view when loading
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .scaleEffect(1.5)
+                }
+                
+                // Navigation to ChatView after successful sign up
+                NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true),
+                               isActive: $authenticationDidSucceed) {
+                    EmptyView()
+                }
+              
+                
             }
-            
-            // Navigation to ChatView after successful sign up
-            NavigationLink(destination: ChatView(), isActive: $authenticationDidSucceed) {  EmptyView()     }
-          
-            
+            .alert("Error: \(error)", isPresented: $showSignUpError) {
+                Button("OK") {}
         }
-        .alert("Error: \(error)", isPresented: $showSignUpError) {
-            Button("OK") {}
         }
     }
     

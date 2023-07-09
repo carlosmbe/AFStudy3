@@ -5,6 +5,7 @@
 //  Created by Carlos Mbendera on 2023-06-26.
 //
 
+import FirebaseAuth
 import SwiftUI
 
 struct ChatView: View {
@@ -16,16 +17,39 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
+            
             List {
                 ForEach(chatViewModel.messages, id: \.self) { message in
                     messageUI(message: message)
                         .listRowSeparator(.hidden)
                 }
+                
               
             }
             .navigationTitle("Chat")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(
+                    Color(hex: "A4D2C3"),
+                           for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 NavigationLink("Done", destination: Survey())
+                
+                NavigationLink {
+                   LogInView()
+                        .navigationBarBackButtonHidden(true)
+                        .onAppear {
+                            //MARK: DOES NOT WORK
+                           logOut()
+                        }
+                    
+                } label: {
+                    Image(systemName: "door.right.hand.open")
+                        .foregroundColor(.red)
+                }
+                
+            
+                
             }
             
             HStack {
@@ -50,6 +74,16 @@ struct ChatView: View {
         chatViewModel.addMessage(newMessage)
         typingMessage = ""
     }
+    
+    private func logOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Failed to sign out")
+        }
+    }
+    
+    
 }
 
 
