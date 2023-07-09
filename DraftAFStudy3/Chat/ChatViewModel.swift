@@ -5,6 +5,7 @@
 //  Created by Carlos Mbendera on 2023-07-05.
 //
 
+import Alamofire
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -40,29 +41,6 @@ class ChatViewModel: ObservableObject {
                 
                 return Message(isMe: isMe, messageContent: messageContent, name: name, timestamp: timestamp)
             }
-        }
-    }
-    
-    func addMessage(_ message: Message) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User is not logged in")
-            return
-        }
-        
-        do {
-            let messageData: [String: Any] = [
-                "isMe": message.isMe,
-                "messageContent": message.messageContent,
-                "name": message.name ?? "",
-                "timestamp": message.timestamp
-            ]
-            
-            try db.collection("UserMessages")
-                .document(userID)
-                .collection("messageItems")
-                .addDocument(data: messageData)
-        } catch let error {
-            print("Error writing message to Firestore: \(error)")
         }
     }
 }
