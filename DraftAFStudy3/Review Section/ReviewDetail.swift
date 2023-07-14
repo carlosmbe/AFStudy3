@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Survey : View {
 
-    @State private var items = surveryItem.testData()
+    @State private var items = surveryItem.allQuestions()
     
     @State private var currentIndex = 0 // holds the index of the current top card
     @State private var shownIndex = 1
@@ -42,7 +42,7 @@ struct Survey : View {
             
             // Card Stack
             CardStack(items, currentIndex: $currentIndex) { item in
-                MultipleChoiceResponseView(question: item.question, choices: item.choices)
+                SingleChoiceResponseView(question: item.question, choices: item.choices)
                     .cornerRadius(20)
             }
         
@@ -138,6 +138,6 @@ struct ReviewDetail: View{
 
 struct ReviewDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewDetail()
+        Survey()
     }
 }

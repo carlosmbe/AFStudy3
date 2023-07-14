@@ -15,7 +15,7 @@
 		B61C2F4A2A55E83D009B861B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F492A55E83D009B861B /* FirebaseFirestore */; };
 		B61C2F4C2A55E83D009B861B /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F4B2A55E83D009B861B /* FirebaseFirestoreSwift */; };
 		B61C2F4E2A55E83D009B861B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F4D2A55E83D009B861B /* FirebaseMessaging */; };
-		B61C2F502A55E90F009B861B /* MultipleChoiceResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F4F2A55E90F009B861B /* MultipleChoiceResponseView.swift */; };
+		B61C2F502A55E90F009B861B /* SingleChoiceResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F4F2A55E90F009B861B /* SingleChoiceResponseView.swift */; };
 		B61C2F522A55E973009B861B /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F512A55E973009B861B /* ReviewModel.swift */; };
 		B61C2F552A55FD41009B861B /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F542A55FD41009B861B /* SignUpView.swift */; };
 		B61C2F572A560876009B861B /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F562A560876009B861B /* LogInView.swift */; };
@@ -32,7 +32,7 @@
 
 /* Begin PBXFileReference section */
 		B61C2F3E2A55E6A6009B861B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B61C2F4F2A55E90F009B861B /* MultipleChoiceResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceResponseView.swift; sourceTree = "<group>"; };
+		B61C2F4F2A55E90F009B861B /* SingleChoiceResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChoiceResponseView.swift; sourceTree = "<group>"; };
 		B61C2F512A55E973009B861B /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		B61C2F542A55FD41009B861B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B61C2F562A560876009B861B /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 			children = (
 				B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */,
 				B61C2F512A55E973009B861B /* ReviewModel.swift */,
-				B61C2F4F2A55E90F009B861B /* MultipleChoiceResponseView.swift */,
+				B61C2F4F2A55E90F009B861B /* SingleChoiceResponseView.swift */,
 			);
 			path = "Review Section";
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B61C2F502A55E90F009B861B /* MultipleChoiceResponseView.swift in Sources */,
+				B61C2F502A55E90F009B861B /* SingleChoiceResponseView.swift in Sources */,
 				B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */,
 				B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */,
 				B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */,
