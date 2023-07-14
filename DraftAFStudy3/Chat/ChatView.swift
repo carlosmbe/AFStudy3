@@ -5,15 +5,13 @@
 //  Created by Carlos Mbendera on 2023-06-26.
 //
 
+import Alamofire
 import FirebaseAuth
 import SwiftUI
 
 struct ChatView: View {
-
     @State private var typingMessage = ""
-    
     @StateObject private var chatViewModel = ChatViewModel()
-    @State private var isNewMessageAdded = false
 
     var body: some View {
         VStack {
@@ -63,15 +61,25 @@ struct ChatView: View {
             }
             .frame(minHeight: CGFloat(50)).padding()
         }
-    
-        
     }
     
     private func sendMessage() {
-        guard !typingMessage.isEmpty else { return }
-        
-        let newMessage = Message(isMe: true, messageContent: typingMessage, name: nil, timestamp: Date())
-        chatViewModel.addMessage(newMessage)
+        guard !typingMessage.isEmpty else {
+            return
+        }
+
+        let parameters: [String: String] = [
+            "user_id": Auth.auth().currentUser?.uid ?? "",
+            "message": typingMessage,
+            "name": Auth.auth().currentUser?.displayName ?? ""
+        ]
+
+        AF.request("http://127.0.0.1:5000/message", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .response { response in
+                // You can handle the server's response here
+                debugPrint(response)
+            }
+
         typingMessage = ""
     }
     

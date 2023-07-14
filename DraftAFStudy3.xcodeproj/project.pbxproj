@@ -26,6 +26,7 @@
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
 		B69A9E242A4C88450062F494 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = B69A9E232A4C88450062F494 /* CardStack */; };
+		B6E0CD142A5A45DA00BD9009 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B6E0CD132A5A45DA00BD9009 /* Alamofire */; };
 		B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55752A4A884F00AD6CE7 /* ChatView.swift */; };
 		B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6E0CD142A5A45DA00BD9009 /* Alamofire in Frameworks */,
 				B61C2F4E2A55E83D009B861B /* FirebaseMessaging in Frameworks */,
 				B61C2F482A55E83D009B861B /* FirebaseDatabaseSwift in Frameworks */,
 				B69A9E242A4C88450062F494 /* CardStack in Frameworks */,
@@ -159,6 +161,7 @@
 				B61C2F492A55E83D009B861B /* FirebaseFirestore */,
 				B61C2F4B2A55E83D009B861B /* FirebaseFirestoreSwift */,
 				B61C2F4D2A55E83D009B861B /* FirebaseMessaging */,
+				B6E0CD132A5A45DA00BD9009 /* Alamofire */,
 			);
 			productName = DraftAFStudy3;
 			productReference = B65855FB2A3979DE008A597A /* DraftAFStudy3.app */;
@@ -191,6 +194,7 @@
 			packageReferences = (
 				B69A9E222A4C88450062F494 /* XCRemoteSwiftPackageReference "CardStack" */,
 				B61C2F402A55E83D009B861B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B6E0CD122A5A45DA00BD9009 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = B65855FC2A3979DE008A597A /* Products */;
 			projectDirPath = "";
@@ -447,6 +451,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		B6E0CD122A5A45DA00BD9009 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -489,6 +501,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B69A9E222A4C88450062F494 /* XCRemoteSwiftPackageReference "CardStack" */;
 			productName = CardStack;
+		};
+		B6E0CD132A5A45DA00BD9009 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6E0CD122A5A45DA00BD9009 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
