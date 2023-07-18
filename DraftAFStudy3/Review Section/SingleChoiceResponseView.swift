@@ -10,7 +10,7 @@ struct SingleChoiceResponseView: View {
     var question: String = ""
     var choices: [String] = [""]
 
-    @State private var selectedIndex: Int? = nil
+    @Binding var selectedIndex: Int?
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -84,8 +84,10 @@ struct SingleChoiceResponseView: View {
     }
 }
 
+/*
 struct SingleChoiceResponseView_Previews: PreviewProvider {
     static var previews: some View {
-        SingleChoiceResponseView()
+       // SingleChoiceResponseView(, selectedIndex: <#Binding<Int?>#>)
     }
 }
+*/

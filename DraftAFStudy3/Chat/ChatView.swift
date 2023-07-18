@@ -10,19 +10,37 @@ import FirebaseAuth
 import SwiftUI
 
 struct ChatView: View {
+    
     @State private var typingMessage = ""
+    
+    
+    @State private var errorMessage = ""
+    @State private var showError = false
+    
     @StateObject private var chatViewModel = ChatViewModel()
 
     var body: some View {
         VStack {
             
-            List {
-                ForEach(chatViewModel.messages, id: \.self) { message in
-                    messageUI(message: message)
-                        .listRowSeparator(.hidden)
-                }
+            ScrollViewReader { scrollView in
                 
-              
+                List {
+                    ForEach(chatViewModel.messages) { message in
+                        messageUI(message: message)
+                            .listRowSeparator(.hidden)
+                            .id(message.id)
+                    }
+                    
+                    if chatViewModel.isSendingMessage {
+                        ProgressView()
+                    }
+                    
+                }
+                .onChange(of: chatViewModel.messages) { _ in
+                    withAnimation {
+                        scrollView.scrollTo(chatViewModel.messages.last?.id, anchor: .bottom)
+                    }
+                }
             }
             .navigationTitle("Chat")
             .navigationBarTitleDisplayMode(.large)
@@ -54,14 +72,30 @@ struct ChatView: View {
                 TextField("Message...", text: $typingMessage)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minHeight: CGFloat(30))
+             
                 
-                Button(action: sendMessage) {
-                    Text("Send")
+                if chatViewModel.isSendingMessage {
+                    ProgressView()
+                        .padding()
+                }else{
+                    Button(action: sendMessage) {
+                        Text("Send")
+                    }
                 }
+                
             }
             .frame(minHeight: CGFloat(50)).padding()
         }
+        
+        
+        .alert("There Was An Issue \n\(errorMessage)", isPresented: $showError)
+        {   Button("Alright :c"){   errorMessage = ""   }   }
+        
+        
     }
+    
+    
+    
     
     private func sendMessage() {
         guard !typingMessage.isEmpty else {
@@ -74,15 +108,31 @@ struct ChatView: View {
             "name": Auth.auth().currentUser?.displayName ?? ""
         ]
 
-        AF.request("http://127.0.0.1:5000/message", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        let serverUrl = "\(chatViewModel.serverAddress)/message"
+        
+        
+        chatViewModel.isSendingMessage = true
+        
+        AF.request(serverUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .response { response in
                 // You can handle the server's response here
                 debugPrint(response)
+                
+                switch response.result{
+                case .success(_):
+                    print("Sucess")
+                    chatViewModel.isSendingMessage = false
+                case .failure(let error):
+                    errorMessage = "\(error.localizedDescription)"
+                    showError = true
+                    chatViewModel.isSendingMessage = false
+                    
+                }
             }
 
         typingMessage = ""
     }
-    
+
     private func logOut() {
         do {
             try Auth.auth().signOut()

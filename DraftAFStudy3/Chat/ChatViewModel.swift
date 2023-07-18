@@ -13,10 +13,26 @@ import FirebaseFirestoreSwift
 class ChatViewModel: ObservableObject {
     let db = Firestore.firestore()
     
+    @Published var isSendingMessage = false
+    
     @Published var messages: [Message] = []
+    
+    @Published var serverAddress: String = "127.0.0.1"
     
     init() {
         loadMessages()
+        loadServerAddress()
+    }
+    
+    func loadServerAddress() {
+        db.collection("ServerDetails").document("address")
+            .getDocument { (document, error) in
+                if let document = document, document.exists {
+                    self.serverAddress = document.data()?["value"] as? String ?? "127.0.0.1"
+                } else {
+                    print("Document does not exist")
+                }
+            }
     }
     
     func loadMessages() {
