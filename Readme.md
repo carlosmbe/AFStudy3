@@ -10,3 +10,6 @@ For a more detailed overview of the study design, methodology, participant selec
 
 This [Google Doc](https://docs.google.com/document/d/1JKU0x2-KtcaZR_WTsCyf9hsn8YnSc3-t21SNH3epgd8/edit?usp=sharing) is constantly evolving but will represent the Software Requirements Specifications.
 
+The authors wish to acknowledge Wesley Mason, Michael Hulet and the rest of
+the Information and Telecommunication Technology Center (ITTC) staff at The
+University of Kansas for their support with our high performance computing.
