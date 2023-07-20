@@ -94,6 +94,7 @@ struct Survey : View {
             .frame(minHeight: CGFloat(50)).padding()
         }
         .navigationTitle("Question \(shownIndex) of \(items.count)")
+        .navigationBarTitleDisplayMode(.inline)
         .onChange(of: currentIndex, perform: updateShownIndex)
         
         
