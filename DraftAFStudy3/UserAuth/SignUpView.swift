@@ -31,9 +31,24 @@ struct SignUpView: View {
                 .ignoresSafeArea()
             
             VStack{
-                Text("Create Account")
-                    .font(.largeTitle)
+                ZStack {
+                    Color(hex: "A4D2C3")
+                        .frame(maxWidth: 220, maxHeight: 100)
+                        .cornerRadius(10)  // Rounded corners
+                        .padding()
+                    
+                    VStack {
+                        Text("Hello!")
+                        Text("Sign Up")
+                    }
+                    .foregroundColor(.white)
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .padding()
+                    
+                }
+                
+                Image("ai_v_in")
 
                 TextField("First Name", text: $firstName)
                     .textFieldStyle(.roundedBorder)
