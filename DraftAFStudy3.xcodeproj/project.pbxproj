@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B61C2F3F2A55E6A6009B861B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B61C2F3E2A55E6A6009B861B /* GoogleService-Info.plist */; };
 		B61C2F422A55E83D009B861B /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F412A55E83D009B861B /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		B61C2F442A55E83D009B861B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F432A55E83D009B861B /* FirebaseAuth */; };
 		B61C2F462A55E83D009B861B /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B61C2F452A55E83D009B861B /* FirebaseDatabase */; };
@@ -25,14 +24,15 @@
 		B65856012A3979DE008A597A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65856002A3979DE008A597A /* ContentView.swift */; };
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
+		B672E55F2A6B5D8E0060810D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */; };
 		B69A9E242A4C88450062F494 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = B69A9E232A4C88450062F494 /* CardStack */; };
+		B6AE63522A6D89C70035995A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AE63512A6D89C70035995A /* SettingsView.swift */; };
 		B6E0CD142A5A45DA00BD9009 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B6E0CD132A5A45DA00BD9009 /* Alamofire */; };
 		B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55752A4A884F00AD6CE7 /* ChatView.swift */; };
 		B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B61C2F3E2A55E6A6009B861B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B61C2F4F2A55E90F009B861B /* SingleChoiceResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChoiceResponseView.swift; sourceTree = "<group>"; };
 		B61C2F512A55E973009B861B /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
 		B61C2F542A55FD41009B861B /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -44,6 +44,11 @@
 		B65856002A3979DE008A597A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B65856022A3979E0008A597A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B65856052A3979E0008A597A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B672E5602A6B5DA10060810D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B672E5612A6B600D0060810D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B6AE63512A6D89C70035995A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B6AE63532A6D901C0035995A /* DraftAFStudy3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DraftAFStudy3.entitlements; sourceTree = "<group>"; };
 		B6EA55752A4A884F00AD6CE7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,14 +121,18 @@
 		B65855FD2A3979DE008A597A /* DraftAFStudy3 */ = {
 			isa = PBXGroup;
 			children = (
+				B6AE63532A6D901C0035995A /* DraftAFStudy3.entitlements */,
+				B672E5612A6B600D0060810D /* Info.plist */,
+				B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */,
 				B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */,
 				B65856002A3979DE008A597A /* ContentView.swift */,
+				B6AE63512A6D89C70035995A /* SettingsView.swift */,
 				B61C2F582A56087E009B861B /* UserAuth */,
 				B61C2F592A560C33009B861B /* Chat */,
 				B61C2F532A55E996009B861B /* Review Section */,
 				B65856022A3979E0008A597A /* Assets.xcassets */,
+				B672E5602A6B5DA10060810D /* GoogleService-Info.plist */,
 				B65856042A3979E0008A597A /* Preview Content */,
-				B61C2F3E2A55E6A6009B861B /* GoogleService-Info.plist */,
 			);
 			path = DraftAFStudy3;
 			sourceTree = "<group>";
@@ -211,8 +220,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */,
+				B672E55F2A6B5D8E0060810D /* GoogleService-Info.plist in Resources */,
 				B65856032A3979E0008A597A /* Assets.xcassets in Resources */,
-				B61C2F3F2A55E6A6009B861B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +242,7 @@
 				B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */,
 				B61C2F5B2A560C43009B861B /* ChatViewModel.swift in Sources */,
 				B61C2F522A55E973009B861B /* ReviewModel.swift in Sources */,
+				B6AE63522A6D89C70035995A /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,12 +368,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftAFStudy3/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -374,7 +387,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = Carlos.Mbendera.DraftAFStudy3;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -387,12 +400,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DraftAFStudy3/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -403,7 +419,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = Carlos.Mbendera.DraftAFStudy3;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

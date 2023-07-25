@@ -16,7 +16,7 @@ db = firestore.client()
 # Create a dictionary of options
 opt = Opt({
     "model": "transformer/generator",
-    "model_file": "zoo:blender/blender_90M/model"
+    "model_file": "zoo:blender/blender_3B/model"
 })
 
 # Create ParlAI agent
@@ -60,4 +60,4 @@ def receive_message():
     return {'status': 'success'}
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=6969)
+    app.run(host='0.0.0.0', port=5000)

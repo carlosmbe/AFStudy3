@@ -49,27 +49,16 @@ struct ChatView: View {
                            for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
-                NavigationLink("Done", destination: Survey())
                 
-                NavigationLink {
-                   LogInView()
-                        .navigationBarBackButtonHidden(true)
-                        .onAppear {
-                            //MARK: DOES NOT WORK
-                           logOut()
-                        }
-                    
-                } label: {
-                    Image(systemName: "door.right.hand.open")
-                        .foregroundColor(.red)
-                }
+                NavigationLink("Survey", destination: Survey())
                 
-            
+                NavigationLink {    SettingsView()  }
+                label: {    Image(systemName: "gear")    }
                 
             }
             
             HStack {
-                TextField("Message...", text: $typingMessage)
+                TextField("Message...", text: $typingMessage, axis: .vertical)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minHeight: CGFloat(30))
              
@@ -133,15 +122,6 @@ struct ChatView: View {
         typingMessage = ""
     }
 
-    private func logOut() {
-        do {
-            try Auth.auth().signOut()
-        } catch {
-            print("Failed to sign out")
-        }
-    }
-    
-    
 }
 
 

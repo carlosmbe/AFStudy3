@@ -17,7 +17,7 @@ class ChatViewModel: ObservableObject {
     
     @Published var messages: [Message] = []
     
-    @Published var serverAddress: String = "127.0.0.1"
+    @Published var serverAddress: String = "https://testing.ittc.ku.edu"
     
     init() {
         loadMessages()
@@ -28,7 +28,7 @@ class ChatViewModel: ObservableObject {
         db.collection("ServerDetails").document("address")
             .getDocument { (document, error) in
                 if let document = document, document.exists {
-                    self.serverAddress = document.data()?["value"] as? String ?? "127.0.0.1"
+                    self.serverAddress = document.data()?["value"] as? String ?? "https://testing.ittc.ku.edu"
                 } else {
                     print("Document does not exist")
                 }
