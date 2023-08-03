@@ -68,7 +68,7 @@ struct SingleChoiceResponseView: View {
                         }) {
                             Image(systemName: "arrow.down")
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 18, height: 18)
                                 .padding()
                         }
                         .background(Color(.secondarySystemBackground))

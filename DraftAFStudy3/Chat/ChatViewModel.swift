@@ -14,6 +14,7 @@ class ChatViewModel: ObservableObject {
     let db = Firestore.firestore()
     
     @Published var isSendingMessage = false
+    @Published var messagesLoaded: Bool = false
     
     @Published var messages: [Message] = []
     
@@ -57,6 +58,9 @@ class ChatViewModel: ObservableObject {
                 
                 return Message(isMe: isMe, messageContent: messageContent, name: name, timestamp: timestamp)
             }
+            self.messagesLoaded = true
         }
+        
+      
     }
 }
