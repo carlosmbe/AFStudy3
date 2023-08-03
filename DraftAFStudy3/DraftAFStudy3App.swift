@@ -12,14 +12,29 @@ import UserNotifications
 @main
 struct DraftAFStudy3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+    @StateObject var viewModel = SurveyViewModel()
+    @State private var showSurveyAlert = false
+
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 if Auth.auth().currentUser != nil {
-                    ChatView()
+                    // If user is logged in, check for survey completion
+                    if viewModel.canAccessChat() {
+                        ChatView()
+                    } else {
+                        Survey()
+                            .onAppear(perform: {
+                                showSurveyAlert = true
+                            })
+                            .alert(isPresented: $showSurveyAlert) {
+                                Alert(title: Text("Reminder"),
+                                      message: Text("Please complete the survey to access the chat."),
+                                      dismissButton: .default(Text("OK")))
+                            }
+                    }
                 } else {
-                    ContentView()
+                    LogInView()
                 }
             }
         }

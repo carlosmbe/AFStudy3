@@ -182,6 +182,19 @@ class SurveyViewModel: ObservableObject {
     }
 }
 
+extension SurveyViewModel {
+    func canAccessChat() -> Bool {
+        if let lastDate = UserDefaults.standard.object(forKey: "lastSurveyDate") as? Date {
+            let differenceInHours = Calendar.current.dateComponents([.hour], from: lastDate, to: Date()).hour ?? 0
+            return differenceInHours < 24
+        } else {
+            // If the date isn't available in UserDefaults, consider the user as not eligible.
+            // Optionally, you can fetch from Firestore here as a fallback.
+            return false
+        }
+    }
+}
+
 
 
 struct ReviewDetail_Previews: PreviewProvider {

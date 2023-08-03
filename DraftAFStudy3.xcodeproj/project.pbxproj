@@ -21,7 +21,6 @@
 		B61C2F5B2A560C43009B861B /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F5A2A560C43009B861B /* ChatViewModel.swift */; };
 		B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B634BA062A3AA8910069EEF8 /* Chat Models.swift */; };
 		B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */; };
-		B65856012A3979DE008A597A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65856002A3979DE008A597A /* ContentView.swift */; };
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
 		B672E55F2A6B5D8E0060810D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */; };
@@ -41,7 +40,6 @@
 		B634BA062A3AA8910069EEF8 /* Chat Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat Models.swift"; sourceTree = "<group>"; };
 		B65855FB2A3979DE008A597A /* DraftAFStudy3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DraftAFStudy3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftAFStudy3App.swift; sourceTree = "<group>"; };
-		B65856002A3979DE008A597A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B65856022A3979E0008A597A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B65856052A3979E0008A597A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 				B672E5612A6B600D0060810D /* Info.plist */,
 				B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */,
 				B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */,
-				B65856002A3979DE008A597A /* ContentView.swift */,
 				B6AE63512A6D89C70035995A /* SettingsView.swift */,
 				B61C2F582A56087E009B861B /* UserAuth */,
 				B61C2F592A560C33009B861B /* Chat */,
@@ -237,7 +234,6 @@
 				B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */,
 				B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */,
 				B61C2F552A55FD41009B861B /* SignUpView.swift in Sources */,
-				B65856012A3979DE008A597A /* ContentView.swift in Sources */,
 				B61C2F572A560876009B861B /* LogInView.swift in Sources */,
 				B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */,
 				B61C2F5B2A560C43009B861B /* ChatViewModel.swift in Sources */,
@@ -370,7 +366,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.2;
+				CURRENT_PROJECT_VERSION = 0.0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
@@ -387,7 +383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -403,7 +399,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.2;
+				CURRENT_PROJECT_VERSION = 0.0.3;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
@@ -420,7 +416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
