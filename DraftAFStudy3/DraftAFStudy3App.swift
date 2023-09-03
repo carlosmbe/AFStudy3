@@ -12,7 +12,11 @@ import UserNotifications
 @main
 struct DraftAFStudy3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     @StateObject var viewModel = SurveyViewModel()
+    
+    @StateObject var chatViewModel = ChatViewModel()
+    
     @State private var showSurveyAlert = false
 
     var body: some Scene {
@@ -23,6 +27,7 @@ struct DraftAFStudy3App: App {
                     if viewModel.canAccessChat() {
                         ChatView()
                     } else {
+                        /*
                         Survey()
                             .onAppear(perform: {
                                 showSurveyAlert = true
@@ -31,12 +36,13 @@ struct DraftAFStudy3App: App {
                                 Alert(title: Text("Reminder"),
                                       message: Text("Please complete the survey to access the chat."),
                                       dismissButton: .default(Text("OK")))
-                            }
+                        }  */ ChatView() 
                     }
                 } else {
                     LogInView()
                 }
             }
+            .environmentObject(chatViewModel)
         }
     }
 }

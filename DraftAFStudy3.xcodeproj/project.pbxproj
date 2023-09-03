@@ -26,6 +26,7 @@
 		B672E55F2A6B5D8E0060810D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */; };
 		B69A9E242A4C88450062F494 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = B69A9E232A4C88450062F494 /* CardStack */; };
 		B6AE63522A6D89C70035995A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AE63512A6D89C70035995A /* SettingsView.swift */; };
+		B6B5A3BE2AA16E7E00FD66E6 /* KeyboardMagic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B5A3BD2AA16E7E00FD66E6 /* KeyboardMagic.swift */; };
 		B6E0CD142A5A45DA00BD9009 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B6E0CD132A5A45DA00BD9009 /* Alamofire */; };
 		B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55752A4A884F00AD6CE7 /* ChatView.swift */; };
 		B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */; };
@@ -47,6 +48,7 @@
 		B672E5612A6B600D0060810D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B6AE63512A6D89C70035995A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B6AE63532A6D901C0035995A /* DraftAFStudy3.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DraftAFStudy3.entitlements; sourceTree = "<group>"; };
+		B6B5A3BD2AA16E7E00FD66E6 /* KeyboardMagic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMagic.swift; sourceTree = "<group>"; };
 		B6EA55752A4A884F00AD6CE7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 				B6EA55752A4A884F00AD6CE7 /* ChatView.swift */,
 				B634BA062A3AA8910069EEF8 /* Chat Models.swift */,
 				B61C2F5A2A560C43009B861B /* ChatViewModel.swift */,
+				B6B5A3BD2AA16E7E00FD66E6 /* KeyboardMagic.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				B61C2F502A55E90F009B861B /* SingleChoiceResponseView.swift in Sources */,
 				B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */,
 				B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */,
+				B6B5A3BE2AA16E7E00FD66E6 /* KeyboardMagic.swift in Sources */,
 				B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */,
 				B61C2F552A55FD41009B861B /* SignUpView.swift in Sources */,
 				B61C2F572A560876009B861B /* LogInView.swift in Sources */,

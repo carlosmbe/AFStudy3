@@ -16,14 +16,18 @@ struct ChatView: View {
     @State private var showError = false
     @State private var batchedMessages: [String] = []
     @State private var timer: Timer?
+    
+    @State private var hackingTheListCounter = 0
 
-    @StateObject private var chatViewModel = ChatViewModel()
+    @EnvironmentObject var chatViewModel: ChatViewModel
 
     var body: some View {
         VStack {
             chatList()
+                .listStyle(PlainListStyle())
             messageInput()
         }
+        
         
         .onAppear {
             markMyLastSentMessageAsRead()
@@ -51,43 +55,84 @@ struct ChatView: View {
         ScrollViewReader { scrollView in
             List {
                 let lastMessageFromMeID = chatViewModel.messages.last(where: { $0.isMe })?.id
+                
+                let lastMessageFromOtherID = chatViewModel.messages.last(where: { !$0.isMe })?.id
+
                 ForEach(chatViewModel.messages) { message in
-                    messageUI(message: message, isLastMessage: lastMessageFromMeID == message.id)
-                        .listRowSeparator(.hidden)
-                        .id(message.id)
+                    // Check if the current message ID matches either last message ID
+                    if message.id == lastMessageFromMeID {
+                        // Here you can handle specific behavior for your last message
+                        // For example, you can display its state:
+                        messageUI(message: message, isLastMessage: true)
+                            .listRowSeparator(.hidden)
+                            .id(message.id)
+                    } else if message.id == lastMessageFromOtherID {
+                        // Here you can handle specific behavior for the other user's last message
+                        // For example, you can display the image:
+                        messageUI(message: message, isLastMessage: true)
+                            .listRowSeparator(.hidden)
+                            .id(message.id)
+                    } else {
+                        // This is for all other messages
+                        messageUI(message: message, isLastMessage: false)
+                            .listRowSeparator(.hidden)
+                            .id(message.id)
+                    }
                 }
                 if chatViewModel.isSendingMessage {
                     ProgressView()
                 }
             }
             .onChange(of: chatViewModel.messages) { _ in
-                withAnimation {
+                if  hackingTheListCounter > 0 {
+                    withAnimation{
+                        scrollView.scrollTo(chatViewModel.messages.last?.id, anchor: .bottom)
+                    }
+                }else{
                     scrollView.scrollTo(chatViewModel.messages.last?.id, anchor: .bottom)
+                    hackingTheListCounter += 1
                 }
             }
         }
     }
     
+    
+  
+    
     private func messageInput() -> some View {
-        HStack {
-            TextField("Message...", text: $typingMessage, axis: .vertical)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(minHeight: CGFloat(30))
+        HStack(spacing: 10) {
+            // Chat Input TextField
+            TextField("Message...", text: $typingMessage)
+                .padding(10) // Gives space inside the TextField
+                .background(Color(.systemGray5)) // Light gray color background
+                .cornerRadius(20) // Rounded edges
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(.systemGray4), lineWidth: 1)
+                ) // Optional border
                 .onChange(of: typingMessage) { newValue in
                     handleTypingChange(newValue)
                 }
 
+            // Send Button
             if chatViewModel.isSendingMessage {
                 ProgressView()
                     .padding()
             } else {
                 Button(action: sendMessage) {
-                    Text("Send")
+                    Image(systemName: "arrow.up.circle.fill") // An arrow icon for sending
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.blue) // Color of the send button (can adjust to preference)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
-        .frame(minHeight: CGFloat(50)).padding()
+        .padding(.horizontal) // Padding on the left and right side of the HStack
+        .frame(minHeight: CGFloat(50)).padding(.bottom) // Padding below the HStack
     }
+
     
     private func handleTypingChange(_ newValue: String) {
         timer?.invalidate()
@@ -102,7 +147,7 @@ struct ChatView: View {
         }
 
         // 1. Optimistically update the UI
-        let newMessage = Message(isMe: true, messageContent: typingMessage, name: Auth.auth().currentUser?.displayName ?? "", state: .delivered)
+        let newMessage = Message(isMe: true, messageContent: typingMessage, name: Auth.auth().currentUser?.displayName ?? "", state: .sent)
         chatViewModel.messages.append(newMessage)
 
         // 2. Store the user's message to Firebase directly
@@ -148,6 +193,10 @@ struct ChatView: View {
 
         
         private func sendBatchedMessages() {
+            
+            if let lastMessage = chatViewModel.messages.last(where: { $0.isMe }) {
+                lastMessage.state = .processing
+            }
             
             let combinedMessage = batchedMessages.joined(separator: " ")  // Combine all batched messages
             

@@ -21,7 +21,7 @@ class Message: Identifiable, Hashable, ObservableObject {
     var messageContent: String
     var name: String? = Auth.auth().currentUser?.displayName
     
-    @Published var state: MessageState = .delivered
+    @Published var state: MessageState = .sent
     
     // Date() is only used when not passing a parameter. Otherwise, older messages will take Saved Data passed in. New Messages will not.
     var timestamp: Date = Date()
@@ -36,7 +36,7 @@ class Message: Identifiable, Hashable, ObservableObject {
         return lhs.id == rhs.id
     }
     
-    init(isMe: Bool, messageContent: String, name: String? = Auth.auth().currentUser?.displayName, state: MessageState = .delivered, timestamp: Date = Date()) {
+    init(isMe: Bool, messageContent: String, name: String? = Auth.auth().currentUser?.displayName, state: MessageState = .sent, timestamp: Date = Date()) {
         self.isMe = isMe
         self.messageContent = messageContent
         self.name = name
@@ -46,7 +46,8 @@ class Message: Identifiable, Hashable, ObservableObject {
 }
 
 enum MessageState: String {
-    case delivered = "Delivered"
+    case sent = "Sent"
+    case processing = "Responding"
     case read = "Read"
 }
 
@@ -57,6 +58,12 @@ struct messageUI : View{
     
     @State var isLastMessage: Bool = false
     
+    
+    @State private var currentImageIndex: Int = 1
+    @State private var imageSwapTimer: Timer?
+    
+    @EnvironmentObject var chatViewModel: ChatViewModel
+    
     var body : some View{
         HStack{
             if message.isMe{
@@ -64,24 +71,69 @@ struct messageUI : View{
             }
             VStack(alignment: .trailing){
                 Text(message.messageContent)
-                    .padding(10)
+                    .padding(7.25)
                     .foregroundColor(message.isMe ? Color.white : Color.white)
                     .background(message.isMe ? Color(hex: "1D6F8A") : Color(hex: "A4D2C3"))
                     .cornerRadius(10)
                 
-                if message.isMe && isLastMessage{
-                    Text(message.state.rawValue)
-                        .font(.footnote)
-                        .foregroundColor(.gray)
+                if isLastMessage{
+                    if message.isMe{
+                        Text(message.state.rawValue)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                        
+                    }   else{
+                        
+                        HStack {
+                            if chatViewModel.isSendingMessage {
+                                Image("ai_dots_\(currentImageIndex)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 63, height: 31)
+                                    .onAppear {
+                                        startImageSwapTimer()
+                                    }
+                                    .onDisappear {
+                                        stopImageSwapTimer()
+                                    }
+                                Spacer()  // Pushes the image to the left
+                            } else {
+                                Image("ai_u_out")
+                                    .resizable()
+                                    .frame(width: 63, height: 31)
+                                Spacer()  // Pushes the image to the left
+                            }
+                        }
+                        
+                    }
                 }
+                
+                
             }
             if !message.isMe{
                 Spacer()
             }
             
-        }  .listRowBackground(Color.clear)
+        }  .listRowBackground(Color(.systemBackground))
         
     }
+    
+    // The function to start the timer:
+    func startImageSwapTimer() {
+        imageSwapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+            currentImageIndex += 1
+            if currentImageIndex > 4 {
+                currentImageIndex = 1
+            }
+        }
+    }
+
+    // Make sure to stop the timer when the view disappears:
+    func stopImageSwapTimer() {
+        imageSwapTimer?.invalidate()
+    }
+
+    
 }
 
 

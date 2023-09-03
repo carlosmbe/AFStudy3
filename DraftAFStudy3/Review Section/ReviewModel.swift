@@ -36,14 +36,22 @@ extension surveryItem{
             oneToTen.append("\(num)")
         }
         
+        var timeScale = [String]()
+        
+        for num in 1...11{
+            timeScale.append("Close to \(num * 5) Minutes")
+        }
+        
+        timeScale.append("Greater than 60 Minutes")
+        
         todayQuestions.append(surveryItem(
-            question: "Rate from 1-10 how many hours you spent interacting with the AI today",
-            choices: oneToTen)
+            question: "How much time did you spend interacting with the AI today?",
+            choices: timeScale)
         )
         
         todayQuestions.append(surveryItem(
-            question: "Rate from 1-10 how many hours you spent interacting with other people today",
-            choices: oneToTen)
+            question: "How much time did you spend interacting with other people today?",
+            choices: timeScale)
         )
         
         todayQuestions.append(surveryItem(question: "How positive or negative was your mood today?",
