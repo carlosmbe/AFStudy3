@@ -110,7 +110,7 @@ struct messageUI : View{
                 
                 
             }
-            if !message.isMe{
+            if !message.isMe || message.name?.lowercased() == "bot"{
                 Spacer()
             }
             

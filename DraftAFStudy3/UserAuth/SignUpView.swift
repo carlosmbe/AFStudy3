@@ -121,7 +121,7 @@ struct SignUpView: View {
                             db.collection("UserMessages").document(userId).collection("messageItems").addDocument(data: [
                                 "isMe": false,
                                 "messageContent": welcomeMessage,
-                                "name": "KU Research Team",
+                                "name": "Bot",
                                 "timestamp": Date()
                             ])
                             
