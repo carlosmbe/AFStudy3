@@ -17,17 +17,17 @@ struct DraftAFStudy3App: App {
     
     @StateObject var chatViewModel = ChatViewModel()
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @State private var showSurveyAlert = false
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 if Auth.auth().currentUser != nil {
-                    // If user is logged in, check for survey completion
-                    if viewModel.canAccessChat() {
+                    if viewModel.isEligibleForChat == true {
                         ChatView()
                     } else {
-                        /*
                         Survey()
                             .onAppear(perform: {
                                 showSurveyAlert = true
@@ -36,16 +36,23 @@ struct DraftAFStudy3App: App {
                                 Alert(title: Text("Reminder"),
                                       message: Text("Please complete the survey to access the chat."),
                                       dismissButton: .default(Text("OK")))
-                        }  */ ChatView() 
+                            }
                     }
                 } else {
                     LogInView()
                 }
             }
             .environmentObject(chatViewModel)
+            .onChange(of: scenePhase) { newPhase in
+                      if newPhase == .active {
+                          viewModel.checkChatEligibility()
+                      }
+                  }
         }
     }
 }
+
+
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {

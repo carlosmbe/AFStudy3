@@ -29,9 +29,11 @@ struct Survey : View {
     }
     
     var body: some View {
+      let _ =  print("surveyFinished: \(surveyFinished), showCompletionAlert: \(showCompletionAlert), selectedChoice: \(String(describing: selectedChoice))")
+
         if !items.isEmpty {
             VStack {
-                NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true), isActive: $surveyFinished) { EmptyView() }
+              NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true), isActive: $surveyFinished) { EmptyView() }
 
                 SingleChoiceResponseView(question: items[currentIndex].question,
                                          choices: items[currentIndex].choices,
@@ -60,19 +62,35 @@ struct Survey : View {
                                 showCompletionAlert = true
                             }
                         }
-                        .buttonStyle(.borderedProminent)
+                         .buttonStyle(.borderedProminent)
+                        .disabled(selectedChoice != nil ? false : true)
                     }
                     
                     if currentIndex == items.count - 1 {
+                        
+                        
                         Button("Submit"){
+                            print("Submit button tapped")
                             if selectedChoice != nil {
                                 answers[currentIndex] = selectedChoice
-                                submitSurvey(answers: answers)
+                                
+                                // Call the function but use a completion handler to know when it's done
+                                submitSurvey(answers: answers) { success in
+                                    if success {
+                                        print("Success is Done.")
+                                        showCompletionAlert = true  // This triggers the transition to ChatView
+                                    } else {
+                                        // Handle the error. Maybe show an error alert or something similar
+                                        print("There was an error submitting the survey.")
+                                    }
+                                }
                             } else {
-                                showCompletionAlert = true
+                                print("selectedChoice is nil.")
+                              //  showCompletionAlert = true
                             }
                         }
                         .buttonStyle(.borderedProminent)
+                        .disabled(selectedChoice != nil ? false : true)
                         .alert("Thank you for completing the survey!", isPresented: $showCompletionAlert) {
                             Button("OK") {
                                 surveyFinished = true
@@ -98,11 +116,15 @@ struct Survey : View {
         }
     }
     
-    private func submitSurvey(answers: [Int?]) {
+    private func submitSurvey(answers: [Int?], completion: @escaping (Bool) -> Void) {
+        print("Submit Survey Started")
         guard let userID = Auth.auth().currentUser?.uid, let userDisplayName = Auth.auth().currentUser?.displayName else {
             print("User is not logged in")
+            completion(false)
             return
         }
+        
+        print("UserID: \(userID), DisplayName: \(userDisplayName)")
 
         let db = Firestore.firestore()
         var data: [String: Any] = [:]
@@ -127,18 +149,29 @@ struct Survey : View {
             .setData(data) { error in
                 if let error = error {
                     print("Error writing survey to Firestore: \(error)")
+                    completion(false)  // Indicate failure
                 } else {
                     print("Survey data successfully written to Firestore")
                     UserDefaults.standard.set(date, forKey: "lastSurveyDate")
-                    showCompletionAlert = true
+                    completion(true)  // Indicate success
                 }
             }
+        print("Data to be uploaded: \(data)")
     }
 }
 
 
+
+enum SurveyState {
+    case notStarted
+    case inProgress
+    case completed
+}
+
 class SurveyViewModel: ObservableObject {
+    @Published var isEligibleForChat: Bool? = true
     @Published var items: [surveryItem] = []
+    @Published var surveyState: SurveyState = .notStarted
     
     init() {
         fetchQuestions()
@@ -183,17 +216,24 @@ class SurveyViewModel: ObservableObject {
 }
 
 extension SurveyViewModel {
-    func canAccessChat() -> Bool {
+    func checkChatEligibility() {
         if let lastDate = UserDefaults.standard.object(forKey: "lastSurveyDate") as? Date {
             let differenceInHours = Calendar.current.dateComponents([.hour], from: lastDate, to: Date()).hour ?? 0
-            return differenceInHours < 24
+            self.isEligibleForChat = differenceInHours < 24
+            print(isEligibleForChat)
         } else {
-            // If the date isn't available in UserDefaults, consider the user as not eligible.
-            // Optionally, you can fetch from Firestore here as a fallback.
-            return false
+            fetchLastSurveyDateFromFirestore { dateFromFirestore in
+                if let _ = dateFromFirestore {
+                    self.isEligibleForChat = false
+
+                } else {
+                    self.isEligibleForChat = true
+                }
+            }
         }
     }
 }
+
 
 
 

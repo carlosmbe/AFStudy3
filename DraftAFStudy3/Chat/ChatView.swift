@@ -102,7 +102,7 @@ struct ChatView: View {
     private func messageInput() -> some View {
         HStack(spacing: 10) {
             // Chat Input TextField
-            TextField("Message...", text: $typingMessage)
+            TextField("Message...", text: $typingMessage, axis: .vertical)
                 .padding(10) // Gives space inside the TextField
                 .background(Color(.systemGray5)) // Light gray color background
                 .cornerRadius(20) // Rounded edges
