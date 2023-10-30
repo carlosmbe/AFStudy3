@@ -56,6 +56,7 @@ struct SignUpView: View {
 
                 TextField("Email", text: $userEmail)
                     .keyboardType(.emailAddress)
+                    .textCase(.lowercase)
                     .textFieldStyle(.roundedBorder)
                     .padding()
                 

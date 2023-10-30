@@ -20,6 +20,7 @@
 		B61C2F572A560876009B861B /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F562A560876009B861B /* LogInView.swift */; };
 		B61C2F5B2A560C43009B861B /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61C2F5A2A560C43009B861B /* ChatViewModel.swift */; };
 		B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B634BA062A3AA8910069EEF8 /* Chat Models.swift */; };
+		B63DCD812AED640D00E2B002 /* SurveyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63DCD802AED640D00E2B002 /* SurveyViewModel.swift */; };
 		B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */; };
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		B61C2F562A560876009B861B /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		B61C2F5A2A560C43009B861B /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		B634BA062A3AA8910069EEF8 /* Chat Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chat Models.swift"; sourceTree = "<group>"; };
+		B63DCD802AED640D00E2B002 /* SurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewModel.swift; sourceTree = "<group>"; };
 		B65855FB2A3979DE008A597A /* DraftAFStudy3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DraftAFStudy3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftAFStudy3App.swift; sourceTree = "<group>"; };
 		B65856022A3979E0008A597A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				B6EA55772A4A886500AD6CE7 /* ReviewDetail.swift */,
 				B61C2F512A55E973009B861B /* ReviewModel.swift */,
 				B61C2F4F2A55E90F009B861B /* SingleChoiceResponseView.swift */,
+				B63DCD802AED640D00E2B002 /* SurveyViewModel.swift */,
 			);
 			path = "Review Section";
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			files = (
 				B61C2F502A55E90F009B861B /* SingleChoiceResponseView.swift in Sources */,
 				B6EA55762A4A884F00AD6CE7 /* ChatView.swift in Sources */,
+				B63DCD812AED640D00E2B002 /* SurveyViewModel.swift in Sources */,
 				B634BA072A3AA8910069EEF8 /* Chat Models.swift in Sources */,
 				B6EA55782A4A886500AD6CE7 /* ReviewDetail.swift in Sources */,
 				B61C2F552A55FD41009B861B /* SignUpView.swift in Sources */,
@@ -366,7 +370,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.5;
+				CURRENT_PROJECT_VERSION = 0.0.6;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
@@ -383,7 +387,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -399,7 +403,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.5;
+				CURRENT_PROJECT_VERSION = 0.0.6;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
@@ -416,7 +420,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.5;
+				MARKETING_VERSION = 0.0.6;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

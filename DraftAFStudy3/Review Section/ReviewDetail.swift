@@ -10,7 +10,14 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
+enum SurveyState {
+    case notStarted
+    case inProgress
+    case completed
+}
+
 struct Survey : View {
+    
     @State private var surveyFinished = false
     @State private var showCompletionAlert = false
     
@@ -159,83 +166,6 @@ struct Survey : View {
         print("Data to be uploaded: \(data)")
     }
 }
-
-
-
-enum SurveyState {
-    case notStarted
-    case inProgress
-    case completed
-}
-
-class SurveyViewModel: ObservableObject {
-    @Published var isEligibleForChat: Bool? = true
-    @Published var items: [surveryItem] = []
-    @Published var surveyState: SurveyState = .notStarted
-    
-    init() {
-        fetchQuestions()
-    }
-
-    func fetchQuestions() {
-        if let lastDate = UserDefaults.standard.object(forKey: "lastSurveyDate") as? Date {
-            let differenceInDays = Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day
-            
-            if differenceInDays! >= 7 {
-                items = surveryItem.weeklyQuestions()
-            } else {
-                items = surveryItem.dailyQuestions()
-            }
-        } else {
-            fetchLastSurveyDateFromFirestore { (dateFromFirestore) in
-                if let lastDate = dateFromFirestore {
-                    UserDefaults.standard.set(lastDate, forKey: "lastSurveyDate")
-                    self.fetchQuestions()  // Recursively fetch questions after setting date
-                } else {
-                    self.items = surveryItem.dailyQuestions()
-                }
-            }
-        }
-    }
-
-    func fetchLastSurveyDateFromFirestore(completion: @escaping (Date?) -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            completion(nil)
-            return
-        }
-
-        let db = Firestore.firestore()
-        db.collection("UserSurveys").document(userID).collection("surveyItems").order(by: "date", descending: true).limit(to: 1).getDocuments { (snapshot, error) in
-            if let documents = snapshot?.documents, let firstDoc = documents.first, let date = firstDoc.get("date") as? Date {
-                completion(date)
-            } else {
-                completion(nil)
-            }
-        }
-    }
-}
-
-extension SurveyViewModel {
-    func checkChatEligibility() {
-        if let lastDate = UserDefaults.standard.object(forKey: "lastSurveyDate") as? Date {
-            let differenceInHours = Calendar.current.dateComponents([.hour], from: lastDate, to: Date()).hour ?? 0
-            self.isEligibleForChat = differenceInHours < 24
-            print(isEligibleForChat)
-        } else {
-            fetchLastSurveyDateFromFirestore { dateFromFirestore in
-                if let _ = dateFromFirestore {
-                    self.isEligibleForChat = false
-
-                } else {
-                    self.isEligibleForChat = true
-                }
-            }
-        }
-    }
-}
-
-
-
 
 struct ReviewDetail_Previews: PreviewProvider {
     static var previews: some View {

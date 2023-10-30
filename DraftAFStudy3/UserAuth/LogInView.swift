@@ -55,6 +55,7 @@ struct LogInView: View{
                 TextField("Email", text: $userEmail)
                     .keyboardType(.emailAddress)
                     .textFieldStyle(.roundedBorder)
+                    .textCase(.lowercase)
                     .padding()
                 
                 SecureField("Password", text: $userPass)
