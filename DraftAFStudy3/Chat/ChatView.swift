@@ -145,7 +145,9 @@ struct ChatView: View {
         guard !typingMessage.isEmpty else {
             return
         }
-
+        //Add space to trigger on change
+        typingMessage = "\(typingMessage) "
+        
         // 1. Optimistically update the UI
         let newMessage = Message(isMe: true, messageContent: typingMessage, name: Auth.auth().currentUser?.displayName ?? "", state: .sent)
         chatViewModel.messages.append(newMessage)
