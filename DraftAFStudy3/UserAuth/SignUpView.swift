@@ -38,8 +38,8 @@ struct SignUpView: View {
                         .padding()
                     
                     VStack {
-                        Text("Hello!")
-                        Text("Sign Up")
+                        Text("Hello There!")
+                        Text("Sign Up ")
                     }
                     .foregroundColor(.white)
                     .font(.title2)
@@ -72,13 +72,17 @@ struct SignUpView: View {
                     .buttonStyle(.borderedProminent)
                     .padding()
                 
+                NavigationLink("Already have an account? Sign In here", destination: LogInView())
+                    .buttonStyle(.borderless)
+                    .padding()
+                
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                         .scaleEffect(1.5)
                 }
                 
-                NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true),
+                NavigationLink(destination: OnBoardingView().navigationBarBackButtonHidden(true),
                                isActive: $authenticationDidSucceed) {
                     EmptyView()
                 }

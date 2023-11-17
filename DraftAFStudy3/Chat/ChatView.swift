@@ -30,8 +30,12 @@ struct ChatView: View {
         
         
         .onAppear {
+            if !chatViewModel.messagesLoaded {
+                chatViewModel.loadMessages()
+            }
             markMyLastSentMessageAsRead()
         }
+        
         .onReceive(chatViewModel.$messagesLoaded) { (loaded) in
             if loaded {
                markMyLastSentMessageAsRead()

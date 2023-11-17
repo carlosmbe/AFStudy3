@@ -19,7 +19,7 @@ struct SettingsView: View {
             
             
             NavigationLink{
-                LogInView()
+                SignUpView()
                     .navigationBarBackButtonHidden(true)
                     .onAppear {
                         //MARK: DOES NOT WORK Properly

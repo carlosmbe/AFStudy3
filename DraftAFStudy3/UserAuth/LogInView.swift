@@ -83,9 +83,7 @@ struct LogInView: View{
                     .buttonStyle(.borderedProminent)
                     .padding()
                 
-                NavigationLink("New User? Sign Up here", destination: SignUpView())
-                    .buttonStyle(.borderless)
-                    .padding()
+          
                 
                 
             }

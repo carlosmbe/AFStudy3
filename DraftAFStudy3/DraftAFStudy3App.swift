@@ -39,7 +39,7 @@ struct DraftAFStudy3App: App {
                             }
                     }
                 } else {
-                    LogInView()
+                    SignUpView()
                 }
             }
             .environmentObject(chatViewModel)
