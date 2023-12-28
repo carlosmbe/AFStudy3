@@ -31,21 +31,40 @@ struct Survey : View {
     @State private var selectedChoice: Int? = nil
     @State private var answers: [Int?] = []
     
+    @State private var pickerSelection: Int = 0
+
+    
     private func updateShownIndex(_ newValue: Int){
         shownIndex = min(max(1, currentIndex + 1), items.count)
     }
     
     var body: some View {
-      let _ =  print("surveyFinished: \(surveyFinished), showCompletionAlert: \(showCompletionAlert), selectedChoice: \(String(describing: selectedChoice))")
-
+        let _ =  print("surveyFinished: \(surveyFinished), showCompletionAlert: \(showCompletionAlert), selectedChoice: \(String(describing: selectedChoice))")
+        
         if !items.isEmpty {
             VStack {
-              NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true), isActive: $surveyFinished) { EmptyView() }
-
-                SingleChoiceResponseView(question: items[currentIndex].question,
-                                         choices: items[currentIndex].choices,
-                                         selectedIndex: $selectedChoice)
+                NavigationLink(destination: ChatView().navigationBarBackButtonHidden(true), isActive: $surveyFinished) { EmptyView() }
+                
+                
+                if items[currentIndex].usePicker {
+                    // Display the picker view
+                    
+                    TimePickerView(question: items[currentIndex].question,
+                                    answers: $answers,
+                                   index: currentIndex)
+                    .padding()
+                    
+                    Spacer()
+                    
+                } else {
+                    // Display the single choice view
+                    SingleChoiceResponseView(question: items[currentIndex].question,
+                                             choices: items[currentIndex].choices ?? [],
+                                             selectedIndex: $selectedChoice)
                     .cornerRadius(20)
+                }
+                
+                
                 
                 HStack {
                     if currentIndex > 0 {
@@ -61,16 +80,21 @@ struct Survey : View {
                     
                     if currentIndex < items.count - 1 {
                         Button("Next") {
-                            if selectedChoice != nil {
-                                answers[currentIndex] = selectedChoice
-                                currentIndex += 1
-                                selectedChoice = answers[currentIndex]
-                            } else {
-                                showCompletionAlert = true
+                            if currentIndex < items.count - 1 {
+                                if let _ = answers[currentIndex] {
+                                    currentIndex += 1
+                                } else {
+                                    showCompletionAlert = true
+                                }
                             }
                         }
-                         .buttonStyle(.borderedProminent)
-                        .disabled(selectedChoice != nil ? false : true)
+                        .buttonStyle(.borderedProminent)
+                        .disabled(
+                            currentIndex >= items.count ||
+                            currentIndex >= answers.count ||
+                            (items[currentIndex].usePicker ? answers[currentIndex] == nil : selectedChoice == nil)
+                        )
+
                     }
                     
                     if currentIndex == items.count - 1 {
@@ -93,7 +117,7 @@ struct Survey : View {
                                 }
                             } else {
                                 print("selectedChoice is nil.")
-                              //  showCompletionAlert = true
+                                //  showCompletionAlert = true
                             }
                         }
                         .buttonStyle(.borderedProminent)
@@ -132,23 +156,34 @@ struct Survey : View {
         }
         
         print("UserID: \(userID), DisplayName: \(userDisplayName)")
-
+        
         let db = Firestore.firestore()
         var data: [String: Any] = [:]
         data["userName"] = userDisplayName
-
+        
         for i in 0..<answers.count {
-            let answerIndex = answers[i]!
-            let answer = items[i].choices[answerIndex]
             let question = items[i].question
-            data[question] = answer
+            if items[i].usePicker {
+                // Handle picker response
+                let answerValue = answers[i] ?? 0 // Default to 0 if nil
+                data[question] = "\(answerValue) minutes" // Or any appropriate formatting
+            } else {
+                // Handle single choice response
+                if let answerIndex = answers[i], let choices = items[i].choices, choices.indices.contains(answerIndex) {
+                    let answer = choices[answerIndex]
+                    data[question] = answer
+                } else {
+                    // Handle nil or out-of-range index
+                    data[question] = "No response"
+                }
+            }
         }
-
+        
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM yyyy"
         let dateString = formatter.string(from: date)
-
+        
         db.collection("UserSurveys")
             .document(userID)
             .collection("surveyItems")
@@ -165,10 +200,55 @@ struct Survey : View {
             }
         print("Data to be uploaded: \(data)")
     }
+    
 }
+
 
 struct ReviewDetail_Previews: PreviewProvider {
     static var previews: some View {
         Survey()
+    }
+}
+
+
+struct TimePickerView: View {
+    var question: String
+    @Binding var answers: [Int?]
+    var index: Int
+
+    private var safeSelectedMinutes: Binding<Int> {
+        Binding(
+            get: {
+                guard answers.indices.contains(index) else { return 0 }
+                return answers[index] ?? 0
+            },
+            set: { newValue in
+                if answers.indices.contains(index) {
+                    answers[index] = newValue
+                }
+            }
+        )
+    }
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                Rectangle()
+                    .fill(Color(hex: "1D6F8A"))
+                    .frame(width: 10, height: 10)
+                    .cornerRadius(2)
+                    .padding(.top, 8)
+
+                Text(question)
+                    .font(.title3)
+            }
+
+            Picker("Minutes", selection: safeSelectedMinutes) {
+                ForEach(0..<60, id: \.self) {
+                    Text("\($0) minutes")
+                }
+            }
+            .pickerStyle(WheelPickerStyle())
+        }
     }
 }

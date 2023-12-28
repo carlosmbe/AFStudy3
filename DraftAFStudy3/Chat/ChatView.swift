@@ -100,9 +100,6 @@ struct ChatView: View {
         }
     }
     
-    
-  
-    
     private func messageInput() -> some View {
         HStack(spacing: 10) {
             // Chat Input TextField
@@ -137,7 +134,6 @@ struct ChatView: View {
         .frame(minHeight: CGFloat(50)).padding(.bottom) // Padding below the HStack
     }
 
-    
     private func handleTypingChange(_ newValue: String) {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
@@ -195,58 +191,61 @@ struct ChatView: View {
             }
         }
     }
-
-
+    
+    private func sendBatchedMessages() {
         
-        private func sendBatchedMessages() {
-            
-            if let lastMessage = chatViewModel.messages.last(where: { $0.isMe }) {
-                lastMessage.state = .processing
-            }
-            
-            let combinedMessage = batchedMessages.joined(separator: " ")  // Combine all batched messages
-            
-            batchedMessages.removeAll()  // Clear the batched messages
-            
-            // Use combinedMessage for sending to the server
-            let parameters: [String: String] = [
-                "user_id": Auth.auth().currentUser?.uid ?? "",
-                "message": combinedMessage,
-                "name": Auth.auth().currentUser?.displayName ?? ""
-            ]
-            
-            
-            let serverUrl = "\(chatViewModel.serverAddress)/message"
-            
-            
-            chatViewModel.isSendingMessage = true
-            
-            AF.request(serverUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-                .response { response in
-                    // You can handle the server's response here
-                    debugPrint(response)
+        let combinedMessage = batchedMessages.joined(separator: " ")  // Combine all batched messages
+       
+        if combinedMessage.isEmpty {
+               return
+           }
+        
+        
+        if let lastMessage = chatViewModel.messages.last(where: { $0.isMe }) {
+            lastMessage.state = .processing
+        }
+        
+        
+        batchedMessages.removeAll()  // Clear the batched messages
+        
+        // Use combinedMessage for sending to the server
+        var parameters: [String: String] = [
+            "user_id": Auth.auth().currentUser?.uid ?? "",
+            "message": combinedMessage,
+            "name": Auth.auth().currentUser?.displayName ?? ""
+        ]
+        
+        let serverUrl = "\(chatViewModel.serverAddress)/message"
+        
+        
+        chatViewModel.isSendingMessage = true
+        
+        AF.request(serverUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .response { response in
+                // You can handle the server's response here
+                debugPrint(response)
+                
+                switch response.result{
+                case .success(_):
+                    print("Success")
+                    markMyLastSentMessageAsRead()
+                    chatViewModel.isSendingMessage = false
+                case .failure(let error):
+                    errorMessage = "\(error.localizedDescription)"
+                    showError = true
+                    chatViewModel.isSendingMessage = false
                     
-                    switch response.result{
-                    case .success(_):
-                        print("Sucess")
-                        markMyLastSentMessageAsRead()
-                        chatViewModel.isSendingMessage = false
-                    case .failure(let error):
-                        errorMessage = "\(error.localizedDescription)"
-                        showError = true
-                        chatViewModel.isSendingMessage = false
-                        
-                    }
                 }
-            
-            
-        }
+            }
+        
         
     }
     
-    
-    struct ChatView_Previews: PreviewProvider {
-        static var previews: some View {
-            ChatView()
-        }
+}
+
+
+struct ChatView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChatView()
     }
+}

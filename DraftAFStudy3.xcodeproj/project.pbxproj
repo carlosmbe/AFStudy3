@@ -24,6 +24,7 @@
 		B65855FF2A3979DE008A597A /* DraftAFStudy3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */; };
 		B65856032A3979E0008A597A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856022A3979E0008A597A /* Assets.xcassets */; };
 		B65856062A3979E0008A597A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B65856052A3979E0008A597A /* Preview Assets.xcassets */; };
+		B66D21E92B3DE1B500C39842 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66D21E82B3DE1B500C39842 /* TestView.swift */; };
 		B672E55F2A6B5D8E0060810D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */; };
 		B69A9E242A4C88450062F494 /* CardStack in Frameworks */ = {isa = PBXBuildFile; productRef = B69A9E232A4C88450062F494 /* CardStack */; };
 		B6AE63522A6D89C70035995A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AE63512A6D89C70035995A /* SettingsView.swift */; };
@@ -45,6 +46,7 @@
 		B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftAFStudy3App.swift; sourceTree = "<group>"; };
 		B65856022A3979E0008A597A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B65856052A3979E0008A597A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B66D21E82B3DE1B500C39842 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B672E5602A6B5DA10060810D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B672E5612A6B600D0060810D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				B6AE63532A6D901C0035995A /* DraftAFStudy3.entitlements */,
 				B672E5612A6B600D0060810D /* Info.plist */,
 				B672E55E2A6B5D8E0060810D /* GoogleService-Info.plist */,
+				B66D21E82B3DE1B500C39842 /* TestView.swift */,
 				B65855FE2A3979DE008A597A /* DraftAFStudy3App.swift */,
 				B6B4318B2B048B4D00D00AD8 /* OnBoardingView.swift */,
 				B6AE63512A6D89C70035995A /* SettingsView.swift */,
@@ -246,6 +249,7 @@
 				B61C2F5B2A560C43009B861B /* ChatViewModel.swift in Sources */,
 				B6B4318C2B048B4D00D00AD8 /* OnBoardingView.swift in Sources */,
 				B61C2F522A55E973009B861B /* ReviewModel.swift in Sources */,
+				B66D21E92B3DE1B500C39842 /* TestView.swift in Sources */,
 				B6AE63522A6D89C70035995A /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,13 +378,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.1.2;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DraftAFStudy3/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "AF Study 3";
+				INFOPLIST_KEY_CFBundleDisplayName = "Attachment Study";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -391,7 +395,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -407,13 +411,13 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DraftAFStudy3/DraftAFStudy3.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.1.2;
 				DEVELOPMENT_ASSET_PATHS = "\"DraftAFStudy3/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UJL58M7XY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DraftAFStudy3/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "AF Study 3";
+				INFOPLIST_KEY_CFBundleDisplayName = "Attachment Study";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -424,7 +428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ku.afstudy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

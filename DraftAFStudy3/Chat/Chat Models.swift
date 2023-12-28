@@ -23,6 +23,7 @@ class Message: Identifiable, Hashable, ObservableObject {
     
     @Published var state: MessageState = .sent
     
+    
     // Date() is only used when not passing a parameter. Otherwise, older messages will take Saved Data passed in. New Messages will not.
     var timestamp: Date = Date()
     
@@ -98,7 +99,7 @@ struct messageUI : View{
                                     }
                                 Spacer()  // Pushes the image to the left
                             } else {
-                                Image("ai_u_out")
+                                Image("ai_w")
                                     .resizable()
                                     .frame(width: 63, height: 31)
                                 Spacer()  // Pushes the image to the left

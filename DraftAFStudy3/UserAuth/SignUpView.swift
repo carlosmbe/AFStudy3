@@ -117,20 +117,23 @@ struct SignUpView: View {
                     } else {
                         self.authenticationDidSucceed = true
 
-                        // Send the welcome message to the new user
+                        // Send the welcome message and add the user to a prompt group
                         if let userId = result?.user.uid {
+                            let db = Firestore.firestore()
+                            
+                            // Sending welcome message
                             let welcomeMessage = "Hi, This UwU Bot. Thanks for taking part in this study. Please send a message to begin the chat. Thank you. Please don't be shy now. OwO"
-                            
-                            let db =  Firestore.firestore()
-                            
                             db.collection("UserMessages").document(userId).collection("messageItems").addDocument(data: [
                                 "isMe": false,
                                 "messageContent": welcomeMessage,
                                 "name": "Bot",
                                 "timestamp": Date()
                             ])
-                            
-                            
+
+                            // Adding user to a prompt group
+                            db.collection("UserPromptTypes").document(userId).setData([
+                                "promptType": "small_talk" // TODO: Make this more comprehensive
+                            ])
                         }
                     }
                     isLoading = false

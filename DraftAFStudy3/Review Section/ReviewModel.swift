@@ -7,12 +7,12 @@
 
 import Foundation
 
+
 struct surveryItem :Codable, Hashable, Identifiable{
     var id = UUID()
     var question: String
-    var choices: [String]
-    
-    
+    var choices: [String]?
+    var usePicker: Bool = false
 }
 
 extension surveryItem{
@@ -30,28 +30,16 @@ extension surveryItem{
     static func dailyQuestions() -> [surveryItem]{
         var todayQuestions = [surveryItem]()
         
-        var oneToTen = [String]()
-        
-        for num in 1...10{
-            oneToTen.append("\(num)")
-        }
-        
-        var timeScale = [String]()
-        
-        for num in 1...11{
-            timeScale.append("Close to \(num * 5) Minutes")
-        }
-        
-        timeScale.append("Greater than 60 Minutes")
-        
         todayQuestions.append(surveryItem(
             question: "How much time did you spend interacting with the AI today?",
-            choices: timeScale)
+            choices: nil,
+            usePicker: true)
         )
         
         todayQuestions.append(surveryItem(
             question: "How much time did you spend interacting with other people today?",
-            choices: timeScale)
+            choices: nil,
+            usePicker: true)
         )
         
         todayQuestions.append(surveryItem(question: "How positive or negative was your mood today?",

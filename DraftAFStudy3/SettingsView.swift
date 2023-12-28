@@ -7,37 +7,58 @@
 
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
 struct SettingsView: View {
+    @State private var userGroup: String = "Loading..."
+
     var body: some View {
-        
-        VStack{
+        VStack {
             Text("Version: \(UIApplication.appVersion!)")
                 .font(.headline)
                 .padding()
-            
-            
-            
-            NavigationLink{
+                
+            Text("Current Talking Group: \(userGroup)")
+
+            NavigationLink {
                 SignUpView()
                     .navigationBarBackButtonHidden(true)
                     .onAppear {
-                        //MARK: DOES NOT WORK Properly
                         logOut()
                     }
-                
-            }   label: {
+            } label: {
                 Text("Log Out")
                     .foregroundColor(.red)
                     .padding()
-                 
             }
             
+            NavigationLink("Test View", destination: TestView())
+            
+        }
+        .onAppear{
+            fetchUserGroup()
         }
         .navigationTitle("Settings")
-  
     }
     
+    private func fetchUserGroup() {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                userGroup = "An AUTH Error Happened"
+                return
+            }
+
+            let db = Firestore.firestore()
+            db.collection("UserPromptTypes").document(userID).getDocument { document, error in
+                if let error = error {
+                    userGroup = "Error: \(error.localizedDescription)"
+                } else if let document = document, document.exists, let promptType = document.data()?["promptType"] as? String {
+                    userGroup = promptType
+                } else {
+                    userGroup = "Group not found"
+                }
+            }
+        }
+
     private func logOut() {
         do {
             try Auth.auth().signOut()
@@ -53,7 +74,6 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
-
 
 extension UIApplication {
     static var appVersion: String? {

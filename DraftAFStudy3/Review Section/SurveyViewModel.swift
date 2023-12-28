@@ -5,6 +5,7 @@
 //  Created by Carlos Mbendera on 2023-10-28.
 //
 
+//TODO: Let users choose time similar to the timer layour in CLock app
 
 import FirebaseAuth
 import FirebaseFirestore
