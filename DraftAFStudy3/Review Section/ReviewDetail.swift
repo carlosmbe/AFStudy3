@@ -80,13 +80,24 @@ struct Survey : View {
                     
                     if currentIndex < items.count - 1 {
                         Button("Next") {
-                            if currentIndex < items.count - 1 {
-                                if let _ = answers[currentIndex] {
+                            if items[currentIndex].usePicker {
+                                // For picker questions, the answer is already updated in the `answers` array
+                                currentIndex += 1
+                            } else {
+                                // For multiple choice questions
+                                if let choice = selectedChoice {
+                                    answers[currentIndex] = choice
                                     currentIndex += 1
                                 } else {
+                                    // Show alert if no choice is selected
                                     showCompletionAlert = true
                                 }
                             }
+
+                            // Reset selectedChoice for the next question
+                            selectedChoice = answers[currentIndex]
+
+                            // Additional logic if needed
                         }
                         .buttonStyle(.borderedProminent)
                         .disabled(

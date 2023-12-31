@@ -25,7 +25,7 @@ class SurveyViewModel: ObservableObject {
             let differenceInDays = Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day
             
             if differenceInDays! >= 7 {
-                items = surveryItem.weeklyQuestions()
+                items = surveryItem.allQuestions()
             } else {
                 items = surveryItem.dailyQuestions()
             }
