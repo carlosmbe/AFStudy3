@@ -10,6 +10,16 @@ For a more detailed overview of the study design, methodology, participant selec
 
 This [Google Doc](https://docs.google.com/document/d/1JKU0x2-KtcaZR_WTsCyf9hsn8YnSc3-t21SNH3epgd8/edit?usp=sharing) is constantly evolving but will represent the Software Requirements Specifications.
 
-The authors wish to acknowledge Wesley Mason, Michael Hulet and the rest of
+`The authors wish to acknowledge Wesley Mason, Michael Hulet and the rest of
 the Information and Telecommunication Technology Center (ITTC) staff at The
-University of Kansas for their support with our high performance computing.
+University of Kansas for their support with our high performance computing.`
+
+## Beautiful Pictures 
+
+
+### Dark Mode
+![DARK](https://github.com/carlosmbe/AFStudy3/assets/53784701/1e2d92f8-de90-49f9-ac96-bcd8f8bc682f)
+### Light Mode
+![Light ](https://github.com/carlosmbe/AFStudy3/assets/53784701/31d7658d-b378-4546-afb4-197949d33f9f)
+### Surveys 
+![Survey](https://github.com/carlosmbe/AFStudy3/assets/53784701/eb70f291-9fda-4a95-8e88-cef93c24a1a7)
