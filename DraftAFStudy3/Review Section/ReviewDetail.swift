@@ -176,15 +176,22 @@ struct Survey : View {
             let question = items[i].question
             if items[i].usePicker {
                 // Handle picker response
-                let answerValue = answers[i] ?? 0 // Default to 0 if nil
-                data[question] = "\(answerValue) minutes" // Or any appropriate formatting
-            } else {
-                // Handle single choice response
-                if let answerIndex = answers[i], let choices = items[i].choices, choices.indices.contains(answerIndex) {
-                    let answer = choices[answerIndex]
-                    data[question] = answer
+                
+                if let totalMinutes = answers[i] {
+                    let hours = totalMinutes / 60
+                    let minutes = totalMinutes % 60
+                    data[question] = String(format: "%02d hours and %02d minutes", hours, minutes)
                 } else {
-                    // Handle nil or out-of-range index
+                    data[question] = "No response"
+                }
+                    
+                } else {
+                    // Handle single choice response
+                    if let answerIndex = answers[i], let choices = items[i].choices, choices.indices.contains(answerIndex) {
+                        let answer = choices[answerIndex]
+                        data[question] = answer
+                    } else {
+                        // Handle nil or out-of-range index
                     data[question] = "No response"
                 }
             }
@@ -221,21 +228,23 @@ struct ReviewDetail_Previews: PreviewProvider {
     }
 }
 
-
 struct TimePickerView: View {
     var question: String
     @Binding var answers: [Int?]
     var index: Int
 
-    private var safeSelectedMinutes: Binding<Int> {
+    @State private var selectedHour: Int = 0
+    @State private var selectedMinute: Int = 0
+
+    private var safeSelectedTime: Binding<(Int, Int)> {
         Binding(
             get: {
-                guard answers.indices.contains(index) else { return 0 }
-                return answers[index] ?? 0
+                guard answers.indices.contains(index), let totalMinutes = answers[index] else { return (0, 0) }
+                return (totalMinutes / 60, totalMinutes % 60)
             },
             set: { newValue in
                 if answers.indices.contains(index) {
-                    answers[index] = newValue
+                    answers[index] = newValue.0 * 60 + newValue.1
                 }
             }
         )
@@ -254,12 +263,23 @@ struct TimePickerView: View {
                     .font(.title3)
             }
 
-            Picker("Minutes", selection: safeSelectedMinutes) {
-                ForEach(0..<60, id: \.self) {
-                    Text("\($0) minutes")
+            HStack {
+                Picker("Hours", selection: $selectedHour) {
+                    ForEach(0..<24, id: \.self) {
+                        Text("\($0) hr")
+                    }
                 }
+                .pickerStyle(WheelPickerStyle())
+                .onChange(of: selectedHour) { _ in safeSelectedTime.wrappedValue = (selectedHour, selectedMinute) }
+
+                Picker("Minutes", selection: $selectedMinute) {
+                    ForEach(0..<60, id: \.self) {
+                        Text("\($0) min")
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+                .onChange(of: selectedMinute) { _ in safeSelectedTime.wrappedValue = (selectedHour, selectedMinute) }
             }
-            .pickerStyle(WheelPickerStyle())
         }
     }
 }

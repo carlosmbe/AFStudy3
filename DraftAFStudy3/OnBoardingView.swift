@@ -172,6 +172,9 @@ struct MockSurveyView: View {
     ]
     
     var body: some View {
+        
+        StartButtonView()
+        
         VStack {
             
             
@@ -193,7 +196,7 @@ struct MockSurveyView: View {
         }
         .padding()
         
-        StartButtonView()
+       
         
 
     }
