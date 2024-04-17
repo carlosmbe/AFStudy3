@@ -12,14 +12,16 @@ struct LogInView: View{
     
     @Environment(\.colorScheme) var colorScheme
     
+    //State values for User Details and Text Field
     @State private var userEmail : String = ""
     @State private var userPass : String = ""
     
-    
+    //State Values that will be used to show the user an Error
     @State private var error = ""
     @State private var showLogInError = false
     @State private var authenticationDidSucceed = false
     
+    //State Variable for checking if the password reset has been requested by the user
     @State private var showPasswordResetSent = false
     
     var body :some View{
