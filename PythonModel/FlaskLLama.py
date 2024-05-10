@@ -3,6 +3,23 @@ from firebase_admin import credentials, firestore, initialize_app
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.llms import Ollama
 import threading
+import json
+import os
+
+# Server-side in-memory chat histories
+chat_histories = {}
+def load_chat_histories():
+    if os.path.exists('chat_histories.json'):
+        with open('chat_histories.json', 'r') as file:
+            global chat_histories
+            chat_histories = json.load(file)
+
+load_chat_histories()
+
+def save_chat_histories():
+    with open('chat_histories.json', 'w') as file:
+        json.dump(chat_histories, file)
+
 
 # Initialize Flask
 app = Flask(__name__)
@@ -13,13 +30,10 @@ initialize_app(cred)
 db = firestore.client()
 
 # Initialize the Ollama model with LLaMA 3:8B model
-llm = Ollama(model="llama3:8b")
+llm = Ollama(model="llama3:8b", num_gpu = 0)
 
 # Lock for thread safety
 agent_lock = threading.Lock()
-
-# Server-side in-memory chat histories
-chat_histories = {}
 
 # Function to create a prompt template with history
 def create_prompt_with_history(history):
@@ -52,6 +66,8 @@ def receive_message():
         # Update server-side chat history
         chat_histories[user_id].append(("user", user_message))
         chat_histories[user_id].append(("system", response))
+
+        save_chat_histories()
 
         # Save message to Firestore
         bot_message_data = {
