@@ -6,8 +6,18 @@ import threading
 import json
 import os
 
+
+"""
+Current Version: V3
+MARK: 
+VERSION NOTES
+V1: Basic Conversations With ALl Users via dictionary maintaining chat history
+V2: Cacheing Chat in a Text Files so context is maintained after/before chats
+V3: Attempt to add constant summrising and disabled V2 features
+"""
 # Server-side in-memory chat histories
 chat_histories = {}
+""" 
 def load_chat_histories():
     if os.path.exists('chat_histories.json'):
         with open('chat_histories.json', 'r') as file:
@@ -20,6 +30,7 @@ def save_chat_histories():
     with open('chat_histories.json', 'w') as file:
         json.dump(chat_histories, file)
 
+"""
 
 # Initialize Flask
 app = Flask(__name__)
@@ -37,7 +48,9 @@ agent_lock = threading.Lock()
 
 # Function to create a prompt template with history
 def create_prompt_with_history(history):
-    messages = [("system", "Please respond briefly. You are a good AI chatbot who always responds in an inquisitive and supportive way to messages.")]
+    messages = [
+        ("system", "Please respond briefly. You are a good AI chatbot who always responds in an inquisitive and supportive way to messages. I would also like to make you sumarise our chats as we go. Continue the conversation based on the summary and ignore messages that are not in your summary, unless confused. ")
+    ]
     for role, msg in history:
         messages.append((role, msg))
     messages.append(("user", "Message:{message}"))
