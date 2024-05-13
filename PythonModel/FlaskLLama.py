@@ -8,16 +8,18 @@ import os
 
 
 """
-Current Version: V3
+Current Version: V4
 MARK: 
 VERSION NOTES
 V1: Basic Conversations With ALl Users via dictionary maintaining chat history
 V2: Cacheing Chat in a Text Files so context is maintained after/before chats
 V3: Attempt to add constant summrising and disabled V2 features
+V4: Sumarising and Saving Chats as we go. 
+
 """
 # Server-side in-memory chat histories
 chat_histories = {}
-""" 
+
 def load_chat_histories():
     if os.path.exists('chat_histories.json'):
         with open('chat_histories.json', 'r') as file:
@@ -30,7 +32,7 @@ def save_chat_histories():
     with open('chat_histories.json', 'w') as file:
         json.dump(chat_histories, file)
 
-"""
+
 
 # Initialize Flask
 app = Flask(__name__)
