@@ -88,6 +88,7 @@ def receive_message():
         chat_histories[user_id].append(("user", user_message))
         chat_histories[user_id].append(("system", response))
 
+        save_chat_histories()
 
         # Save message to Firestore
         bot_message_data = {
