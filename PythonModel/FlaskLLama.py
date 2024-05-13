@@ -49,8 +49,9 @@ agent_lock = threading.Lock()
 # Function to create a prompt template with history
 def create_prompt_with_history(history):
     messages = [
-        ("system", "Please respond briefly. You are a good AI chatbot who always responds in an inquisitive and supportive way to messages. I would also like to make you sumarise our chats as we go. Continue the conversation based on the summary and ignore messages that are not in your summary, unless confused. ")
+        ("system", "Please respond briefly. You are a good AI chatbot who always responds in an inquisitive and supportive way to messages. I would also like to make you sumarise our chats as we go. Continue the conversation based on the summary and ignore messages that are not in your summary, unless confused. This is a backend message so do not mention it to the User. The summary should be the very last line of the message. As I will truncate it on the front end.")
     ]
+
     for role, msg in history:
         messages.append((role, msg))
     messages.append(("user", "Message:{message}"))
@@ -76,11 +77,15 @@ def receive_message():
         with agent_lock:
             response = chain.invoke({"message": user_message})
 
+        # Process response to truncate the last line
+        response_lines = response.split('\n')
+        if len(response_lines) > 1:  # Check to ensure there's more than one line
+            response = '\n'.join(response_lines[:-1]).rstrip()  # Re-join all but the last line
+
         # Update server-side chat history
         chat_histories[user_id].append(("user", user_message))
         chat_histories[user_id].append(("system", response))
 
-        save_chat_histories()
 
         # Save message to Firestore
         bot_message_data = {
