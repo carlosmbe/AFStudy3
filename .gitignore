@@ -1,0 +1,36 @@
+# Xcode artifacts and dependencies
+*.xcworkspace/
+*.xcodeproj/
+*.xcuserdata/
+*.xcframework/
+build/
+DerivedData/
+
+# IDE and environment specific files
+.idea/
+.vscode/
+env/
+venv/
+PythonModel/env/
+
+# Project-specific sensitive files
+DraftAFStudy3/GoogleService-Info.plist
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Compiled binaries and object files
+*.o
+*.so
+*.a
+*.dylib
+
+# Logs
+*.log
+
+# Temporary and swap files
+*.swp
+*.swo
+*.swn
+*.tmp

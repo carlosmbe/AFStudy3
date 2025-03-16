@@ -51,20 +51,24 @@ struct SignUpView: View {
                 Image("ai_v_in")
 
                 TextField("First Name", text: $firstName)
+                    .textContentType(.givenName)
                     .textFieldStyle(.roundedBorder)
                     .padding()
 
-                TextField("Email", text: $userEmail)
+                TextField("email@example.com", text: $userEmail)
+                    .textContentType(.emailAddress)
                     .keyboardType(.emailAddress)
                     .textCase(.lowercase)
                     .textFieldStyle(.roundedBorder)
                     .padding()
                 
                 SecureField("Password", text: $userPass)
+                    .textContentType(.password)
                     .textFieldStyle(.roundedBorder)
                     .padding()
 
                 SecureField("Confirm Password", text: $confirmPass)  // New SecureField for confirmation
+                    .textContentType(.password)
                     .textFieldStyle(.roundedBorder)
                     .padding()
                 
@@ -122,7 +126,7 @@ struct SignUpView: View {
                             let db = Firestore.firestore()
                             
                             // Sending welcome message
-                            let welcomeMessage = "Hi, This UwU Bot. Thanks for taking part in this study. Please send a message to begin the chat. Thank you. Please don't be shy now. OwO"
+                            let welcomeMessage = "Hi, I'm OwO Bot. Thanks for taking part in this study. Please send a message whenever you would like to start the chat. Thank you."
                             db.collection("UserMessages").document(userId).collection("messageItems").addDocument(data: [
                                 "isMe": false,
                                 "messageContent": welcomeMessage,
@@ -132,7 +136,7 @@ struct SignUpView: View {
 
                             // Adding user to a prompt group
                             db.collection("UserPromptTypes").document(userId).setData([
-                                "promptType": "small_talk" // TODO: Make this more comprehensive
+                                "promptType": "Default" // TODO: Make this more comprehensive
                             ])
                         }
                     }

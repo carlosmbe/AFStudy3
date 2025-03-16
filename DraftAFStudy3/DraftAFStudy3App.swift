@@ -28,15 +28,17 @@ struct DraftAFStudy3App: App {
                     if viewModel.isEligibleForChat == true {
                         ChatView()
                     } else {
-                        Survey()
-                            .onAppear(perform: {
-                                showSurveyAlert = true
-                            })
-                            .alert(isPresented: $showSurveyAlert) {
-                                Alert(title: Text("Reminder"),
-                                      message: Text("Please complete the survey to access the chat."),
-                                      dismissButton: .default(Text("OK")))
-                            }
+                        ChatView() //Delete later
+                        //TODO: Uncomment After Choosing Chat Bot Style
+//                        Survey()
+//                            .onAppear(perform: {
+//                                showSurveyAlert = true
+//                            })
+//                            .alert(isPresented: $showSurveyAlert) {
+//                                Alert(title: Text("Reminder"),
+//                                      message: Text("Please complete the survey to access the chat."),
+//                                      dismissButton: .default(Text("OK")))
+//                            }
                     }
                 } else {
                     SignUpView()

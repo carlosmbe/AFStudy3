@@ -6,7 +6,7 @@ import streamlit as st
 if 'history' not in st.session_state:
     st.session_state.history = []
 
-# function to create a prompt template with history
+# Define a function to create a prompt template with history
 def create_prompt_with_history(history):
     messages = [("system", "Please respond briefly. You are a good AI chatbot who always responds in an inquisitive and supportive way to messages. Use the chat history to provide contextually relevant responses.")]
     for role, msg in history:
@@ -19,7 +19,7 @@ st.title('Langchain Chatbot With LLAMA3:8B model (Memory Experiment 1)')  # Set 
 input_text = st.text_input("Send your messages!!!!")  # Create a text input field in the Streamlit app
 
 # Initialize the Ollama model
-llm = Ollama(model="llama3:8b")
+llm = Ollama(model="llama3:8b", num_gpu=0, temperature = 1.4, mirostat_tau = 6)
 
 # Get the current chat history and create a prompt template
 prompt = create_prompt_with_history(st.session_state.history)

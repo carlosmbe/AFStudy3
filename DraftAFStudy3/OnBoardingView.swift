@@ -20,17 +20,16 @@ struct OnBoardingView: View {
             LinearGradient(gradient: Gradient(colors: [Color(hex: "A4D2C3"), Color(hex: colorScheme == .dark ? "282828" : "e1dCF0")]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            ZStack {
-                TabView {
-                    MockChatCardView()
-                    MockSurveyCardView()
-                }
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-                .padding(.vertical, 20)
-                
-                
-                
-            }
+            MockChatCardView()
+            
+//            ZStack {
+//                TabView {
+//                    MockChatCardView()
+//                    MockSurveyCardView()
+//                }
+//                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+//                .padding(.vertical, 20)
+//            }
         }//BACKGROUND ZSTACK ENDS HERE
     }
 }
@@ -46,13 +45,16 @@ struct MockChatCardView: View {
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                 
-                Text("Hi, Thanks for taking part in this study. Please chat with the bot the same way you chat with your freinds. Don't be shy. OwO")
+                Text("Hi! Thanks for taking part in this study. Please chat with the bot the same way you chat with your freinds or a supportive figure.")
                     .foregroundColor(Color.primary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
                     .frame(maxWidth: 480)
                 
-                MockChatView() // Non-interactive chat view
+                StartButtonView()
+                
+                //MARK: Disabled for simplicty
+               // MockChatView() // Non-interactive chat view
             }
         }
         .cornerRadius(20)
@@ -120,8 +122,8 @@ struct MockChatView: View {
     
     private let mockMessages = [
             MockMessage(messageContent: "Hello! How are you doing today?", isMe: false),
-            MockMessage(messageContent: "I'm alright, just doing my best. Thank you! How are you?", isMe: true),
-            MockMessage(messageContent: "Not so well to be hoesnt, do you have a moment?", isMe: false)
+            MockMessage(messageContent: "I'm trying to stay positive, but it's hard?", isMe: true),
+            MockMessage(messageContent: "I'm sorry to hear that. What's going on?", isMe: false)
         ]
     
     var body: some View {
@@ -129,6 +131,7 @@ struct MockChatView: View {
         
             Spacer()
 
+     
             // Sample Messages
             ForEach(mockMessages) { message in
                 

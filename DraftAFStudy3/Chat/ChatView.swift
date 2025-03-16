@@ -45,7 +45,8 @@ struct ChatView: View {
         .navigationTitle("Chat")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            NavigationLink("Survey", destination: Survey())
+            //MARK: Disabled For The Spring Break 2025 Test
+           // NavigationLink("Survey", destination: Survey())
             
             NavigationLink(destination: SettingsView()) {
                 Image(systemName: "gear")
