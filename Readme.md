@@ -8,6 +8,8 @@ The repo includes resources for bot interaction tracking, survey management for 
 
 For a more detailed overview of the study design, methodology, participant selection, and data collection, refer to the study protocol included in this repository.
 
+If you're interested in helping us test the Android Version of this app. Please open [this link](https://appdistribution.firebase.google.com/testerapps/1:833590724740:android:bcf206ffcda1a9efdd5ad1/releases/1d97aa10722so?utm_source=firebase-console) on an Android Device.
+
 This [Google Doc](https://docs.google.com/document/d/1JKU0x2-KtcaZR_WTsCyf9hsn8YnSc3-t21SNH3epgd8/edit?usp=sharing) is constantly evolving but will represent the Software Requirements Specifications.
 
 `The authors wish to acknowledge Wesley Mason, Michael Hulet and the rest of
