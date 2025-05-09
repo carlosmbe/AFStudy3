@@ -117,7 +117,10 @@ struct ChatView: View {
                 ProgressView()
                     .padding()
             } else {
-                Button {  chatViewModel.sendMessage(typingMessage: typingMessage) } label: {
+                Button {
+                    chatViewModel.sendMessage(typingMessage: typingMessage)
+                    typingMessage = ""
+                } label: {
                     Image(systemName: "arrow.up.circle.fill") // An arrow icon for sending
                         .resizable()
                         .scaledToFit()

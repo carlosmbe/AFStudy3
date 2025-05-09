@@ -16,32 +16,32 @@ class Message: Identifiable, Hashable, ObservableObject {
     
     let id = UUID()
     var isMe: Bool
-    
     var messageContent: String
-    var name: String? = Auth.auth().currentUser?.displayName
+    var name: String?
+    var lineNumber: Int?
+    var isComplete: Bool?
     
     @Published var state: MessageState = .sent
-    
-    
-    // Date() is only used when not passing a parameter. Otherwise, older messages will take Saved Data passed in. New Messages will not.
     var timestamp: Date = Date()
     
-    // Since Message is now a class, we need to implement the hash function
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
-    // And the equality function
     static func == (lhs: Message, rhs: Message) -> Bool {
         return lhs.id == rhs.id
     }
     
-    init(isMe: Bool, messageContent: String, name: String? = Auth.auth().currentUser?.displayName, state: MessageState = .sent, timestamp: Date = Date()) {
+    init(isMe: Bool, messageContent: String, name: String? = nil,
+         state: MessageState = .sent, timestamp: Date = Date(),
+         lineNumber: Int? = nil, isComplete: Bool? = nil) {
         self.isMe = isMe
         self.messageContent = messageContent
-        self.name = name
+        self.name = name ?? Auth.auth().currentUser?.displayName
         self.state = state
         self.timestamp = timestamp
+        self.lineNumber = lineNumber
+        self.isComplete = isComplete
     }
 }
 
@@ -52,88 +52,103 @@ enum MessageState: String {
 }
 
 
-struct messageUI : View{
-    
+struct messageUI: View {
     @ObservedObject var message: Message
-    
     @State var isLastMessage: Bool = false
-    
-    
     @State private var currentImageIndex: Int = 1
     @State private var imageSwapTimer: Timer?
     
     @EnvironmentObject var chatViewModel: ChatViewModel
     
-    var body : some View{
-        HStack{
-            if message.isMe{
+    var body: some View {
+        HStack {
+            if message.isMe {
                 Spacer()
             }
-            VStack(alignment: .trailing){
+            
+            VStack(alignment: message.isMe ? .trailing : .leading, spacing: 4) {
                 Text(message.messageContent)
-                    .padding(7.25)
-                    .foregroundColor(message.isMe ? Color.white : Color.white)
+                    .padding(10)
+                    .foregroundColor(.white)
                     .background(message.isMe ? Color(hex: "1D6F8A") : Color(hex: "A4D2C3"))
-                    .cornerRadius(10)
+                    .cornerRadius(12)
+                    .contextMenu {
+                        Button(action: {
+                            UIPasteboard.general.string = message.messageContent
+                        }) {
+                            Label("Copy", systemImage: "doc.on.doc")
+                        }
+                    }
                 
-                if isLastMessage{
-                    if message.isMe{
+                if isLastMessage {
+                    if message.isMe {
                         Text(message.state.rawValue)
-                            .font(.footnote)
+                            .font(.caption)
                             .foregroundColor(.gray)
-                        
-                    }   else{
-                        
+                    } else {
                         HStack {
-                            if chatViewModel.isSendingMessage {
-                                Image("ai_dots_\(currentImageIndex)")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 63, height: 31)
-                                    .onAppear {
-                                        startImageSwapTimer()
-                                    }
-                                    .onDisappear {
-                                        stopImageSwapTimer()
-                                    }
-                                Spacer()  // Pushes the image to the left
+                            if message.state == .processing {
+                                TypingIndicatorView(currentImageIndex: $currentImageIndex)
                             } else {
                                 Image("ai_w")
                                     .resizable()
                                     .frame(width: 63, height: 31)
-                                Spacer()  // Pushes the image to the left
+                            }
+                            
+                            if !message.isMe {
+                                Spacer()
                             }
                         }
-                        
                     }
                 }
-                
-                
-            }
-            if !message.isMe || message.name?.lowercased() == "bot"{
-                Spacer()
             }
             
-        }  .listRowBackground(Color(.systemBackground))
-        
-    }
-    
-    // The function to start the timer:
-    func startImageSwapTimer() {
-        imageSwapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-            currentImageIndex += 1
-            if currentImageIndex > 4 {
-                currentImageIndex = 1
+            if !message.isMe {
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .onAppear {
+            if message.state == .processing {
+                startImageSwapTimer()
+            }
+        }
+        .onDisappear {
+            stopImageSwapTimer()
+        }
+        .onChange(of: message.state) { newState in
+            if newState == .processing {
+                startImageSwapTimer()
+            } else {
+                stopImageSwapTimer()
             }
         }
     }
-
-    // Make sure to stop the timer when the view disappears:
+    
+    func startImageSwapTimer() {
+        imageSwapTimer?.invalidate()
+        imageSwapTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+            currentImageIndex = currentImageIndex % 4 + 1
+        }
+    }
+    
     func stopImageSwapTimer() {
         imageSwapTimer?.invalidate()
+        imageSwapTimer = nil
     }
-
-    
 }
+
+struct TypingIndicatorView: View {
+    @Binding var currentImageIndex: Int
+    
+    var body: some View {
+        Image("ai_dots_\(currentImageIndex)")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 63, height: 31)
+    }
+}
+
 
 
