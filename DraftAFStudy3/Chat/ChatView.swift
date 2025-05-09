@@ -12,13 +12,9 @@ import SwiftUI
 
 struct ChatView: View {
     @State private var typingMessage = ""
-    @State private var errorMessage = ""
-    @State private var showError = false
-    @State private var batchedMessages: [String] = []
-    @State private var timer: Timer?
-    
-    @State private var hackingTheListCounter = 0
 
+    @State private var hackingTheListCounter = 0
+    
     @EnvironmentObject var chatViewModel: ChatViewModel
 
     var body: some View {
@@ -33,12 +29,12 @@ struct ChatView: View {
             if !chatViewModel.messagesLoaded {
                 chatViewModel.loadMessages()
             }
-            markMyLastSentMessageAsRead()
+            chatViewModel.markMyLastSentMessageAsRead()
         }
         
         .onReceive(chatViewModel.$messagesLoaded) { (loaded) in
             if loaded {
-               markMyLastSentMessageAsRead()
+                chatViewModel.markMyLastSentMessageAsRead()
             }
         }
             
@@ -52,8 +48,8 @@ struct ChatView: View {
                 Image(systemName: "gear")
             }
         }
-        .alert("There Was An Issue \n\(errorMessage)", isPresented: $showError)
-        { Button("Alright :c"){ errorMessage = "" } }
+        .alert("There Was An Issue \n\(chatViewModel.batchErrorMessage)", isPresented: $chatViewModel.batchMessageError)
+        { Button("OK"){ chatViewModel.batchErrorMessage = "" } }
     }
     
     private func chatList() -> some View {
@@ -121,7 +117,7 @@ struct ChatView: View {
                 ProgressView()
                     .padding()
             } else {
-                Button(action: sendMessage) {
+                Button {  chatViewModel.sendMessage(typingMessage: typingMessage) } label: {
                     Image(systemName: "arrow.up.circle.fill") // An arrow icon for sending
                         .resizable()
                         .scaledToFit()
@@ -136,110 +132,10 @@ struct ChatView: View {
     }
 
     private func handleTypingChange(_ newValue: String) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
-            sendBatchedMessages()
+        chatViewModel.timer?.invalidate()
+        chatViewModel.timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { _ in
+            chatViewModel.sendBatchedMessages()
         }
-    }
-    
-    private func sendMessage() {
-        guard !typingMessage.isEmpty else {
-            return
-        }
-        //Add space to trigger on change
-        typingMessage = "\(typingMessage) "
-        
-        // 1. Optimistically update the UI
-        let newMessage = Message(isMe: true, messageContent: typingMessage, name: Auth.auth().currentUser?.displayName ?? "", state: .sent)
-        chatViewModel.messages.append(newMessage)
-
-        // 2. Store the user's message to Firebase directly
-        let userMessageData = [
-            "isMe": true,
-            "messageContent": typingMessage,
-            "name": Auth.auth().currentUser?.displayName ?? "",
-            // Using FieldValue.serverTimestamp() since we're now working directly with Firestore from the client
-            "timestamp": FieldValue.serverTimestamp()
-        ] as [String : Any]
-
-        let user_id = Auth.auth().currentUser?.uid ?? ""
-        Firestore.firestore().collection("UserMessages").document(user_id).collection("messageItems").addDocument(data: userMessageData) { (error) in
-            if let error = error {
-                print("Error saving user message: \(error)")
-            } else {
-                print("User message saved!")
-            }
-        }
-
-        batchedMessages.append(typingMessage)
-        typingMessage = ""
-
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 7.0, repeats: false) { _ in
-            sendBatchedMessages()
-        }
-    }
-    
-    func markMyLastSentMessageAsRead() {
-        if let myLastSentMessageIndex = chatViewModel.messages.lastIndex(where: { $0.isMe }) {
-            var index = myLastSentMessageIndex + 1
-            while index < chatViewModel.messages.count {
-                if !chatViewModel.messages[index].isMe {
-                    chatViewModel.messages[myLastSentMessageIndex].state = .read
-                    break
-                }
-                index += 1
-            }
-        }
-    }
-    
-    private func sendBatchedMessages() {
-        
-        let combinedMessage = batchedMessages.joined(separator: " ")  // Combine all batched messages
-       
-        if combinedMessage.isEmpty {
-               return
-           }
-        
-        
-        if let lastMessage = chatViewModel.messages.last(where: { $0.isMe }) {
-            lastMessage.state = .processing
-        }
-        
-        
-        batchedMessages.removeAll()  // Clear the batched messages
-        
-        // Use combinedMessage for sending to the server
-        var parameters: [String: String] = [
-            "user_id": Auth.auth().currentUser?.uid ?? "",
-            "message": combinedMessage,
-            "name": Auth.auth().currentUser?.displayName ?? ""
-        ]
-        
-        let serverUrl = "\(chatViewModel.serverAddress)/message"
-        
-        
-        chatViewModel.isSendingMessage = true
-        
-        AF.request(serverUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .response { response in
-                // You can handle the server's response here
-                debugPrint(response)
-                
-                switch response.result{
-                case .success(_):
-                    print("Success")
-                    markMyLastSentMessageAsRead()
-                    chatViewModel.isSendingMessage = false
-                case .failure(let error):
-                    errorMessage = "\(error.localizedDescription)"
-                    showError = true
-                    chatViewModel.isSendingMessage = false
-                    
-                }
-            }
-        
-        
     }
     
 }

@@ -5,7 +5,6 @@
 //  Created by Carlos Mbendera on 2023-06-26.
 //
 
-import CardStack
 import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore

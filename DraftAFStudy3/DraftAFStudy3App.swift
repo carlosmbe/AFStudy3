@@ -23,7 +23,7 @@ struct DraftAFStudy3App: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack {
                 if Auth.auth().currentUser != nil {
                     if viewModel.isEligibleForChat == true {
                         ChatView()

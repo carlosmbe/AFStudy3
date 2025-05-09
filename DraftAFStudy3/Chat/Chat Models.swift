@@ -7,7 +7,6 @@
 
 import FirebaseFirestoreSwift
 import FirebaseAuth
-
 import Foundation
 import SwiftUI
 
