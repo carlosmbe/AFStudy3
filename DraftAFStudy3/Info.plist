@@ -10,6 +10,13 @@
 		<dict>
 			<key>testing.ittc.ku.edu</key>
 			<string></string>
+			<key>testing2.ittc.ku.edu</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
 	<key>UIBackgroundModes</key>

@@ -20,19 +20,19 @@ struct SettingsView: View {
                 
             Text("Current Talking Group: \(userGroup)")
 
-            NavigationLink {
-                SignUpView()
-                    .navigationBarBackButtonHidden(true)
-                    .onAppear {
-                        logOut()
-                    }
-            } label: {
-                Text("Log Out")
-                    .foregroundColor(.red)
-                    .padding()
-            }
-            
-            NavigationLink("Test View", destination: TestView())
+//            NavigationLink {
+//                SignUpView()
+//                    .navigationBarBackButtonHidden(true)
+//                    .onAppear {
+//                        logOut()
+//                    }
+//            } label: {
+//                Text("Log Out")
+//                    .foregroundColor(.red)
+//                    .padding()
+//            }
+//
+//            NavigationLink("Test View", destination: TestView())
             
         }
         .onAppear{

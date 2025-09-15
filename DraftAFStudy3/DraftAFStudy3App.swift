@@ -13,8 +13,6 @@ import UserNotifications
 struct DraftAFStudy3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    @StateObject var viewModel = SurveyViewModel()
-    
     @StateObject var chatViewModel = ChatViewModel()
     
     @Environment(\.scenePhase) var scenePhase
@@ -25,34 +23,16 @@ struct DraftAFStudy3App: App {
         WindowGroup {
             NavigationStack {
                 if Auth.auth().currentUser != nil {
-                    if viewModel.isEligibleForChat == true {
                         ChatView()
-                    } else {
-                        ChatView() //Delete later
-                        //TODO: Uncomment After Choosing Chat Bot Style
-//                        Survey()
-//                            .onAppear(perform: {
-//                                showSurveyAlert = true
-//                            })
-//                            .alert(isPresented: $showSurveyAlert) {
-//                                Alert(title: Text("Reminder"),
-//                                      message: Text("Please complete the survey to access the chat."),
-//                                      dismissButton: .default(Text("OK")))
-//                            }
-                    }
                 } else {
                     SignUpView()
                 }
             }
             .environmentObject(chatViewModel)
-            .onChange(of: scenePhase) { newPhase in
-                      if newPhase == .active {
-                          viewModel.checkChatEligibility()
-                      }
+    }
                   }
         }
-    }
-}
+    
 
 
 
