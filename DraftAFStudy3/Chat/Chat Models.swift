@@ -108,11 +108,13 @@ struct messageUI: View {
 
     @ViewBuilder
     private func bubbleContent() -> some View {
+        // Keep bubble anchored (right for me, left for others), but keep text left/leading aligned inside
         VStack(alignment: message.isMe ? .trailing : .leading, spacing: 4) {
             Text(message.messageContent)
                 .font(.system(.body, design: .rounded))
                 .foregroundColor(message.isMe ? Color.white : Color.primary)
-                .multilineTextAlignment(message.isMe ? .trailing : .leading)
+                // Always use leading so wrapped lines start at the left in LTR locales
+                .multilineTextAlignment(.leading)
                 .padding(.vertical, 10)
                 .padding(.horizontal, 14)
                 .background(bubbleBackground)
@@ -130,7 +132,8 @@ struct messageUI: View {
 
             if isLastMessage { statusOrTypingRow() }
         }
-        .frame(maxWidth: UIScreen.main.bounds.width * maxBubbleWidthRatio, alignment: message.isMe ? .trailing : .leading)
+        .frame(maxWidth: UIScreen.main.bounds.width * maxBubbleWidthRatio,
+               alignment: message.isMe ? .trailing : .leading)
     }
 
     @ViewBuilder
