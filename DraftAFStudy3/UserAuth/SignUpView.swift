@@ -125,14 +125,14 @@ struct SignUpView: View {
                         if let userId = result?.user.uid {
                             let db = Firestore.firestore()
                             
-                            // Sending welcome message
-                            let welcomeMessage = "Hi, I'm OwO Bot. Thanks for taking part in this study. Please send a message whenever you would like to start the chat. Thank you."
-                            db.collection("UserMessages").document(userId).collection("messageItems").addDocument(data: [
-                                "isMe": false,
-                                "messageContent": welcomeMessage,
-                                "name": "Bot",
-                                "timestamp": Date()
-                            ])
+//                            // Sending welcome message
+//                            let welcomeMessage = "Hi, I'm OwO Bot. Thanks for taking part in this study. Please send a message whenever you would like to start the chat. Thank you."
+//                            db.collection("UserMessages").document(userId).collection("messageItems").addDocument(data: [
+//                                "isMe": false,
+//                                "messageContent": welcomeMessage,
+//                                "name": "Bot",
+//                                "timestamp": Date()
+//                            ])
 
                             // Adding user to a prompt group
                             db.collection("UserPromptTypes").document(userId).setData([
